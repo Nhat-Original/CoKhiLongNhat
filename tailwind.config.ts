@@ -9,29 +9,11 @@ const config: TailwindConfig = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    extend: {
-      fontFamily: {
-        lato: ['var(--font-lato)'],
-        'abril-fatface': ['var(--font-abril-fatface)'],
-      },
-    },
+    extend: {},
   },
   plugins: [require('daisyui')],
   daisyui: {
-    themes: [
-      {
-        light: {
-          ...themes.light,
-          primary: '#E90064',
-        },
-      },
-      {
-        dark: {
-          ...themes.dark,
-          primary: '#E90064',
-        },
-      },
-    ],
+    themes: [],
   } as DaisyuiConfig,
 }
 

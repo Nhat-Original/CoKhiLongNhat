@@ -1,34 +1,39 @@
-import type { AuthOptions } from 'next-auth'
+import prisma from '@/lib/prisma'
+import { PrismaAdapter } from '@auth/prisma-adapter'
+import { AuthOptions } from 'next-auth'
 import NextAuth from 'next-auth/next'
 import GoogleProvider from 'next-auth/providers/google'
-import { GoogleProfile } from 'next-auth/providers/google'
-import { PrismaAdapter } from '@auth/prisma-adapter'
-import prisma from '@/lib/prisma'
 
 const authOptions: AuthOptions = {
+  session: {
+    strategy: 'jwt',
+  },
   adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID || '',
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
-      profile(profile: GoogleProfile) {
+      profile(profile) {
         return {
           id: profile.sub,
           name: profile.name,
           email: profile.email,
           image: profile.picture,
+          role: profile.role ? profile.role : 'STANDARD',
         }
       },
     }),
   ],
+
   callbacks: {
-    session: async ({ session, user }) => {
-      session.user.id = user.id
+    async jwt({ token, user }) {
+      return { ...token, ...user }
+    },
+    async session({ session, token }) {
+      session.user.id = token.id
+      session.user.role = token.role
       return session
     },
-  },
-  pages: {
-    signIn: '/auth/signin',
   },
 }
 
