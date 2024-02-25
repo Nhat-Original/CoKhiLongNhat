@@ -1,7 +1,7 @@
 import React from 'react'
 
 const HomePage = () => {
-  return <div className="page-content"></div>
+  return <div className="h-screen">trang chủ</div>
 }
 
 export default HomePage

@@ -1,8 +1,10 @@
-import prisma from '@/lib/prisma'
+import prisma from '@/prisma'
 import { PrismaAdapter } from '@auth/prisma-adapter'
 import { AuthOptions } from 'next-auth'
 import NextAuth from 'next-auth/next'
 import GoogleProvider from 'next-auth/providers/google'
+import { ENV } from '@/utils/constant'
+import { ROLE } from '@prisma/client'
 
 const authOptions: AuthOptions = {
   session: {
@@ -11,15 +13,15 @@ const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID || '',
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
+      clientId: ENV.GOOGLE_CLIENT_ID || '',
+      clientSecret: ENV.GOOGLE_CLIENT_SECRET || '',
       profile(profile) {
         return {
           id: profile.sub,
           name: profile.name,
           email: profile.email,
           image: profile.picture,
-          role: profile.role ? profile.role : 'STANDARD',
+          role: profile.role ? profile.role : ROLE.STANDARD,
         }
       },
     }),
@@ -30,8 +32,8 @@ const authOptions: AuthOptions = {
       return { ...token, ...user }
     },
     async session({ session, token }) {
-      session.user.id = token.id
-      session.user.role = token.role
+      session.user.id = token.id as string
+      session.user.role = token.role as ROLE
       return session
     },
   },
