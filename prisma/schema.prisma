@@ -53,24 +53,27 @@ model VerificationToken {
 }
 
 model Category {
-  id          String    @id @default(cuid())
-  name        String    @unique @db.VarChar(255)
-  description String?
-  isPublised  Boolean   @default(false)
-  products    Product[]
+  id             String    @id @default(cuid())
+  name           String    @unique @db.VarChar(255)
+  simplifiedName String    @unique @db.VarChar(255)
+  description    String?
+  isPublished    Boolean   @default(false)
+  products       Product[]
 }
 
 model Product {
-  id            String         @id @default(cuid())
-  categoryId    String?
-  name          String         @unique @db.VarChar(255)
-  description   String?        @db.Text
-  status        PRODUCT_STATUS @default(AVAILABLE)
-  price         BigInt?
-  quantity      Int?
-  unit          String?        @db.VarChar(20)
-  category      Category?      @relation(fields: [categoryId], references: [id])
-  productImages ProductImage[]
+  id             String         @id @default(cuid())
+  categoryId     String?
+  name           String         @unique @db.VarChar(255)
+  simplifiedName String         @unique @db.VarChar(255)
+  description    String?        @db.Text
+  status         PRODUCT_STATUS @default(AVAILABLE)
+  price          BigInt?
+  quantity       Int?
+  unit           String?        @db.VarChar(20)
+  isPublished    Boolean        @default(false)
+  category       Category?      @relation(fields: [categoryId], references: [id])
+  productImages  ProductImage[]
 }
 
 model ProductImage {

@@ -13,7 +13,7 @@ const MainFooter = () => {
             <FooterBrand src="/favicon.ico" alt="logo" name="COKHICHITIET" className="scale-150" />
           </div>
           <div>
-            <FooterTitle title="Thông tin" className="font-bold" />
+            <FooterTitle title="Thông tin" className="font-bold underline" />
             <FooterLinkGroup col>
               <div>
                 <b>Giám đốc:</b> {INFORMATION.PRESIDENT}
@@ -24,7 +24,7 @@ const MainFooter = () => {
             </FooterLinkGroup>
           </div>
           <div>
-            <FooterTitle title="Liên hệ" className="font-bold" />
+            <FooterTitle title="Liên hệ" className="font-bold underline" />
             <FooterLinkGroup col>
               <div>
                 <b>Số điện thoại:</b> {CONTACT.PHONE}
@@ -41,7 +41,7 @@ const MainFooter = () => {
             </FooterLinkGroup>
           </div>
           <div>
-            <FooterTitle title="Hỗ trợ" className="font-bold" />
+            <FooterTitle title="Hỗ trợ" className="font-bold underline" />
             <FooterLinkGroup col>
               <FooterLink href="#">
                 <b>{SUPPORT.GUIDE}</b>

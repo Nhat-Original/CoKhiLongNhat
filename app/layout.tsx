@@ -4,7 +4,6 @@ import type { Metadata } from 'next'
 import { ToastContainer, Bounce } from 'react-toastify'
 import Providers from '@/components/Providers'
 import MainNavbar from '@/components/MainNavbar'
-import MainFooter from '@/components/MainFooter'
 
 const metadata: Metadata = {
   title: 'CoKhiChiTiet',
@@ -21,8 +20,6 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
           <MainNavbar />
 
           {children}
-
-          <MainFooter />
 
           <ToastContainer
             position="bottom-right"
