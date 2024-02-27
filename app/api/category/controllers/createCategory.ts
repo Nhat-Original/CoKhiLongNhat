@@ -10,21 +10,36 @@ const createCategory = async (req: NextRequest) => {
   const validation = createCategorySchema.safeParse(body)
 
   if (!validation.success) {
-    return NextResponse.json(standardResponse(STATUS_CODE.BAD_REQUEST, 'request body is invalid'), {
+    return NextResponse.json(standardResponse(STATUS_CODE.BAD_REQUEST, 'Request body is invalid'), {
       status: STATUS_CODE.BAD_REQUEST,
     })
+  }
+
+  const simplifiedName = simplifyName(body.name)
+  const foundCategory = await prisma.category.findUnique({
+    where: {
+      simplifiedName: simplifiedName,
+    },
+  })
+  if (foundCategory) {
+    return NextResponse.json(
+      standardResponse(STATUS_CODE.BAD_REQUEST, `Simplified name "${simplifiedName}" already exists`),
+      {
+        status: STATUS_CODE.BAD_REQUEST,
+      },
+    )
   }
 
   const newCategory = await prisma.category.create({
     data: {
       name: body.name,
-      simplifiedName: simplifyName(body.name),
+      simplifiedName: simplifiedName,
       description: body.description,
       isPublished: body.isPublished,
     },
   })
 
-  return NextResponse.json(standardResponse(STATUS_CODE.CREATED, 'new category created', newCategory), {
+  return NextResponse.json(standardResponse(STATUS_CODE.CREATED, 'New category created', newCategory), {
     status: STATUS_CODE.CREATED,
   })
 }

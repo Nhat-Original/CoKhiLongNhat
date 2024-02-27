@@ -24,6 +24,15 @@ const removeCategoryBySimplifiedName = async (req: NextRequest) => {
     },
   })
 
+  await prisma.product.updateMany({
+    where: {
+      categoryId: deletedCategory.id,
+    },
+    data: {
+      categoryId: null,
+    },
+  })
+
   return NextResponse.json(standardResponse(STATUS_CODE.OK, 'Category deleted', deletedCategory), {
     status: STATUS_CODE.OK,
   })
