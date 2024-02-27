@@ -17,16 +17,33 @@ const updateCategoryBySimplifiedName = async (req: NextRequest) => {
     })
   }
 
-  const foundRecord = await prisma.category.findUnique({
+  const foundCategory = await prisma.category.findUnique({
     where: {
       simplifiedName,
     },
   })
-
-  if (!foundRecord) {
+  if (!foundCategory) {
     return NextResponse.json(standardResponse(STATUS_CODE.NOT_FOUND, 'Category not found'), {
       status: STATUS_CODE.NOT_FOUND,
     })
+  }
+
+  const newSimplifiedName = body.name ? simplifyName(body.name) : undefined
+  const isSimplifiedNameExist = await prisma.category.findUnique({
+    where: {
+      NOT: {
+        id: foundCategory.id,
+      },
+      simplifiedName: newSimplifiedName,
+    },
+  })
+  if (isSimplifiedNameExist) {
+    return NextResponse.json(
+      standardResponse(STATUS_CODE.BAD_REQUEST, `Simplified name "${newSimplifiedName}" already exists`),
+      {
+        status: STATUS_CODE.BAD_REQUEST,
+      },
+    )
   }
 
   const updatedCategory = await prisma.category.update({
@@ -35,7 +52,7 @@ const updateCategoryBySimplifiedName = async (req: NextRequest) => {
     },
     data: {
       name: body.name,
-      simplifiedName: body.name ? simplifyName(body.name) : undefined,
+      simplifiedName: newSimplifiedName,
       description: body.description,
       isPublished: body.isPublished,
     },

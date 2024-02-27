@@ -17,16 +17,33 @@ const updateProductBySimplifiedName = async (req: NextRequest) => {
     })
   }
 
-  const foundRecord = await prisma.product.findUnique({
+  const foundProduct = await prisma.product.findUnique({
     where: {
       simplifiedName,
     },
   })
-
-  if (!foundRecord) {
+  if (!foundProduct) {
     return NextResponse.json(standardResponse(STATUS_CODE.NOT_FOUND, 'Product not found'), {
       status: STATUS_CODE.NOT_FOUND,
     })
+  }
+
+  const newSimplifiedName = body.name ? simplifyName(body.name) : undefined
+  const isSimplifiedNameExist = await prisma.product.findUnique({
+    where: {
+      NOT: {
+        id: foundProduct.id,
+      },
+      simplifiedName: newSimplifiedName,
+    },
+  })
+  if (isSimplifiedNameExist) {
+    return NextResponse.json(
+      standardResponse(STATUS_CODE.BAD_REQUEST, `Simplified name "${newSimplifiedName}" already exists`),
+      {
+        status: STATUS_CODE.BAD_REQUEST,
+      },
+    )
   }
 
   const updatedProduct = await prisma.product.update({
@@ -36,7 +53,7 @@ const updateProductBySimplifiedName = async (req: NextRequest) => {
     data: {
       categoryId: body.categoryId,
       name: body.name,
-      simplifiedName: body.name ? simplifyName(body.name) : undefined,
+      simplifiedName: newSimplifiedName,
       description: body.description,
       status: body.status,
       price: body.price,
