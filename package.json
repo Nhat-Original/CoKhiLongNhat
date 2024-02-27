@@ -29,7 +29,8 @@
     "react": "^18",
     "react-dom": "^18",
     "react-toastify": "^10.0.3",
-    "save-dev": "^0.0.1-security"
+    "save-dev": "^0.0.1-security",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@commitlint/cli": "^18.6.1",
