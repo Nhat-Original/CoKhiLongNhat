@@ -3,12 +3,17 @@ import { STATUS_CODE } from '@/utils/constant'
 import standardResponse from '@/utils/standardResponese'
 import { NextRequest, NextResponse } from 'next/server'
 
-const getCategoryBySimplifiedName = async (req: NextRequest) => {
-  const simplifiedName = req.nextUrl.pathname.split('/')[3]
+const getCategoryById = async (req: NextRequest) => {
+  const id = req.nextUrl.pathname.split('/')[3]
 
   const foundCategory = await prisma.category.findUnique({
     where: {
-      simplifiedName,
+      id: id,
+    },
+    include: {
+      _count: {
+        select: { products: true },
+      },
     },
   })
 
@@ -23,4 +28,4 @@ const getCategoryBySimplifiedName = async (req: NextRequest) => {
   })
 }
 
-export default getCategoryBySimplifiedName
+export default getCategoryById

@@ -1,13 +1,46 @@
 import { create } from 'zustand'
 
-type AdminCategoryStore = {
-  categoryIdList: string[]
-  addCategoryId: (categoryId: string) => void
-  removeCategoryId: (categoryId: string) => void
+type CreateCategorySchema = {
+  name: string
+  description: string | null
+  isPublished: boolean
 }
+type UpdateCategorySchema = {
+  name: string
+  description: string | null
+  isPublished: boolean
+}
+
+type AdminCategoryStore = {
+  createCategorySchema: CreateCategorySchema
+  updateCategorySchema: UpdateCategorySchema
+  categoryIdList: string[]
+  addToCategoryIdList: (categoryId: string) => void
+  removeFromCategoryIdList: (categoryId: string) => void
+  clearCategoryIdList: () => void
+  setCreateCategorySchema: (schema: CreateCategorySchema) => void
+  clearCreateCategorySchema: () => void
+  isUpdatingCategory: boolean
+  setIsUpdatingCategory: (isUpdating: boolean) => void
+  updatingCategoryId: string
+  setUpdatingCategoryId: (id: string) => void
+  setUpdateCategorySchema: (schema: UpdateCategorySchema) => void
+  clearUpdateCategorySchema: () => void
+}
+
 const useAdminCategoryStore = create<AdminCategoryStore>((set) => ({
+  createCategorySchema: {
+    name: '',
+    description: '',
+    isPublished: false,
+  },
+  updateCategorySchema: {
+    name: '',
+    description: '',
+    isPublished: false,
+  },
   categoryIdList: [],
-  addCategoryId: (categoryId: string) => {
+  addToCategoryIdList: (categoryId: string) => {
     set((state) => {
       if (state.categoryIdList.includes(categoryId)) {
         return state
@@ -15,8 +48,31 @@ const useAdminCategoryStore = create<AdminCategoryStore>((set) => ({
       return { categoryIdList: [...state.categoryIdList, categoryId] }
     })
   },
-  removeCategoryId: (categoryId: string) => {
+  removeFromCategoryIdList: (categoryId: string) => {
     set((state) => ({ categoryIdList: state.categoryIdList.filter((id) => id !== categoryId) }))
+  },
+  clearCategoryIdList: () => {
+    set({ categoryIdList: [] })
+  },
+  setCreateCategorySchema: (schema: CreateCategorySchema) => {
+    set({ createCategorySchema: schema })
+  },
+  clearCreateCategorySchema: () => {
+    set({ createCategorySchema: { name: '', description: '', isPublished: false } })
+  },
+  isUpdatingCategory: false,
+  setIsUpdatingCategory: (isUpdating: boolean) => {
+    set({ isUpdatingCategory: isUpdating })
+  },
+  updatingCategoryId: '',
+  setUpdatingCategoryId: (id: string) => {
+    set({ updatingCategoryId: id })
+  },
+  setUpdateCategorySchema: (schema: UpdateCategorySchema) => {
+    set({ updateCategorySchema: schema })
+  },
+  clearUpdateCategorySchema: () => {
+    set({ updateCategorySchema: { name: '', description: '', isPublished: false } })
   },
 }))
 

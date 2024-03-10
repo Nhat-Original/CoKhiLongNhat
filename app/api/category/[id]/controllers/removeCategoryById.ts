@@ -3,12 +3,12 @@ import { STATUS_CODE } from '@/utils/constant'
 import standardResponse from '@/utils/standardResponese'
 import { NextRequest, NextResponse } from 'next/server'
 
-const removeCategoryBySimplifiedName = async (req: NextRequest) => {
-  const simplifiedName = req.nextUrl.pathname.split('/')[3]
+const removeCategoryById = async (req: NextRequest) => {
+  const id = req.nextUrl.pathname.split('/')[3]
 
   const foundCategory = await prisma.category.findUnique({
     where: {
-      simplifiedName,
+      id,
     },
   })
 
@@ -18,18 +18,18 @@ const removeCategoryBySimplifiedName = async (req: NextRequest) => {
     })
   }
 
-  const deletedCategory = await prisma.category.delete({
-    where: {
-      simplifiedName,
-    },
-  })
-
   await prisma.product.updateMany({
     where: {
-      categoryId: deletedCategory.id,
+      categoryId: id,
     },
     data: {
       categoryId: null,
+    },
+  })
+
+  const deletedCategory = await prisma.category.delete({
+    where: {
+      id,
     },
   })
 
@@ -38,4 +38,4 @@ const removeCategoryBySimplifiedName = async (req: NextRequest) => {
   })
 }
 
-export default removeCategoryBySimplifiedName
+export default removeCategoryById

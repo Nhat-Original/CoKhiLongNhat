@@ -1,5 +1,4 @@
 'use client'
-
 import { Button, Modal, ModalBody, ModalHeader } from 'flowbite-react'
 import { useState } from 'react'
 import { HiOutlineExclamationCircle } from 'react-icons/hi'
@@ -7,9 +6,11 @@ import useAdminCategoryStore from '../../hooks/useAdminCategoryStore'
 import { useMutation } from '@tanstack/react-query'
 import { queryClient } from '@/components/Providers/QueryProvider'
 import { ENV } from '@/utils/constant'
+import { toast } from 'react-toastify'
 
 const DeleteCategoryModal = () => {
   const categoryIdList = useAdminCategoryStore((state) => state.categoryIdList)
+  const clearCategoryIdList = useAdminCategoryStore((state) => state.clearCategoryIdList)
   const [openModal, setOpenModal] = useState(false)
   const deleteCategory = useMutation({
     mutationFn: async (id: string) => {
@@ -21,6 +22,7 @@ const DeleteCategoryModal = () => {
     },
     onSuccess() {
       queryClient.invalidateQueries({ queryKey: ['category'] })
+      toast.success('Xóa phân loại thành công')
     },
   })
 
@@ -39,7 +41,8 @@ const DeleteCategoryModal = () => {
           <div className="text-center">
             <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
             <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-              Xóa {categoryIdList.length} phân loại?
+              bạn có chắc chắn muốn xóa {categoryIdList.length} phân loại, những sản phẩm thuộc phân loại bị xóa sẽ
+              không còn phân loại?
             </h3>
             <div className="flex justify-center gap-4">
               <Button
@@ -49,6 +52,7 @@ const DeleteCategoryModal = () => {
                   categoryIdList.forEach((categoryId) => {
                     deleteCategory.mutate(categoryId)
                   })
+                  clearCategoryIdList()
                 }}
               >
                 Xác nhận xóa
