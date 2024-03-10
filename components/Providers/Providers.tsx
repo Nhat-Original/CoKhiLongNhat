@@ -2,11 +2,14 @@
 import React, { ReactNode } from 'react'
 import { SessionProvider } from 'next-auth/react'
 import FlowbiteProvider from './FlowbiteProvider'
+import QueryProvider from './QueryProvider'
 
 const Providers = ({ children }: { children: ReactNode }) => {
   return (
     <SessionProvider>
-      <FlowbiteProvider>{children}</FlowbiteProvider>
+      <QueryProvider>
+        <FlowbiteProvider>{children}</FlowbiteProvider>
+      </QueryProvider>
     </SessionProvider>
   )
 }

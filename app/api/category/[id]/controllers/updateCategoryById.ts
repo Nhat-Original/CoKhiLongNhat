@@ -5,8 +5,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { UpdateCategorySchema, updateCategorySchema } from '../schemas/updateCategorySchema'
 import simplifyName from '@/utils/simplifyName'
 
-const updateCategoryBySimplifiedName = async (req: NextRequest) => {
-  const simplifiedName = req.nextUrl.pathname.split('/')[3]
+const updateCategoryById = async (req: NextRequest) => {
+  const id = req.nextUrl.pathname.split('/')[3]
 
   const body = (await req.json()) as UpdateCategorySchema
   const validation = updateCategorySchema.safeParse(body)
@@ -19,7 +19,7 @@ const updateCategoryBySimplifiedName = async (req: NextRequest) => {
 
   const foundCategory = await prisma.category.findUnique({
     where: {
-      simplifiedName,
+      id,
     },
   })
   if (!foundCategory) {
@@ -48,7 +48,7 @@ const updateCategoryBySimplifiedName = async (req: NextRequest) => {
 
   const updatedCategory = await prisma.category.update({
     where: {
-      simplifiedName,
+      id,
     },
     data: {
       name: body.name,
@@ -63,4 +63,4 @@ const updateCategoryBySimplifiedName = async (req: NextRequest) => {
   })
 }
 
-export default updateCategoryBySimplifiedName
+export default updateCategoryById

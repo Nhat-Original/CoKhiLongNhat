@@ -6,6 +6,7 @@ const ENV = {
   GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
   GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
   ALLOWED_ORIGIN: process.env.ALLOWED_ORIGIN,
+  API_URL: process.env.NEXT_PUBLIC_API_URL,
 }
 
 const STATUS_CODE = {

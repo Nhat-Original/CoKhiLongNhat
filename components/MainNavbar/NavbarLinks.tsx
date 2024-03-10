@@ -15,17 +15,17 @@ const NavbarLinks = () => {
       <NavbarLink as={Link} prefetch={false} active={path === '/'} href="/">
         Trang chủ
       </NavbarLink>
-      <NavbarLink as={Link} prefetch={false} active={path === '/san-pham'} href="/san-pham">
+      <NavbarLink as={Link} prefetch={false} active={path.startsWith('/san-pham')} href="/san-pham">
         Sản phẩm
       </NavbarLink>
-      <NavbarLink as={Link} prefetch={false} active={path === '/lien-he'} href="/lien-he">
+      <NavbarLink as={Link} prefetch={false} active={path.startsWith('/lien-he')} href="/lien-he">
         Liên hệ
       </NavbarLink>
-      <NavbarLink as={Link} prefetch={false} active={path === '/ho-tro'} href="/ho-tro">
+      <NavbarLink as={Link} prefetch={false} active={path.startsWith('/ho-tro')} href="/ho-tro">
         Hỗ trợ
       </NavbarLink>
       {session?.user.role === ROLE.ADMIN && (
-        <NavbarLink as={Link} prefetch={false} active={path === '/quan-ly'} href="/quan-ly">
+        <NavbarLink as={Link} prefetch={false} active={path.startsWith('/quan-ly')} href="/quan-ly">
           Quản lý
         </NavbarLink>
       )}

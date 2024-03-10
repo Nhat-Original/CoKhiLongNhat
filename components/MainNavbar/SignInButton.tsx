@@ -8,7 +8,11 @@ const SigninButton = () => {
 
   if (status === 'authenticated') {
     return (
-      <Dropdown arrowIcon={false} inline label={<Avatar alt="User settings" img={session.user.image || ''} rounded />}>
+      <Dropdown
+        arrowIcon={false}
+        inline
+        label={<Avatar alt="User settings" img={session.user.image || '/avatarPlaceholder.png'} rounded />}
+      >
         <DropdownHeader>
           <span className="block text-sm">{session.user.name}</span>
           <span className="block truncate text-sm font-medium">{session.user.email}</span>

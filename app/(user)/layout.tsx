@@ -1,6 +1,6 @@
 import MainFooter from '@/components/MainFooter'
 
-const RootLayout = ({ children }: { children: React.ReactNode }) => {
+const UserLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       {children}
@@ -10,4 +10,4 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   )
 }
 
-export default RootLayout
+export default UserLayout
