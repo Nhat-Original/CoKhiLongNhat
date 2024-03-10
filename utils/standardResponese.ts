@@ -1,4 +1,4 @@
-type StandardResponse = {
+export type StandardResponse = {
   statusCode: number
   message: string
   data: object | null
