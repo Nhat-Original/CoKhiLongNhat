@@ -7,16 +7,16 @@ import Link from 'next/link'
 
 const MainNavbar = () => {
   return (
-    <Navbar fluid rounded>
+    <Navbar fluid rounded className="z-10">
       <NavbarBrand as={Link} prefetch={false} href="/">
-        <Image alt="logo" src={'/favicon.ico'} width={50} height={50} />
+        <Image alt="logo" src={'/images/favicon.ico'} width={50} height={50} />
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">COKHICHITIET</span>
       </NavbarBrand>
-      <div className="flex md:order-2">
+      <NavbarLinks />
+      <div className="flex">
         <SigninButton />
         <NavbarToggle />
       </div>
-      <NavbarLinks />
     </Navbar>
   )
 }
