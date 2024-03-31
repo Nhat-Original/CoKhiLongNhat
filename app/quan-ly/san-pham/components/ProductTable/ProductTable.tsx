@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   Button,
   Checkbox,
@@ -13,42 +13,47 @@ import {
 } from 'flowbite-react'
 import { useQuery } from '@tanstack/react-query'
 import { ENV } from '@/utils/constant'
-import { Category } from '@prisma/client'
+import { Product } from '@prisma/client'
 import { MdModeEditOutline } from 'react-icons/md'
-import useAdminCategoryStore from '../../hooks/useAdminCategoryStore'
+import useAdminProductStore from '../../hooks/useAdminProductStore'
 
-const CategoryTable = () => {
-  const categoryIdList = useAdminCategoryStore((state) => state.categoryIdList)
-  const addToCategoryIdList = useAdminCategoryStore((state) => state.addToCategoryIdList)
-  const removeFromCategoryIdList = useAdminCategoryStore((state) => state.removeFromCategoryIdList)
-  const setUpdatingCategoryId = useAdminCategoryStore((state) => state.setUpdatingCategoryId)
-  const setIsUpdatingCategory = useAdminCategoryStore((state) => state.setIsUpdatingCategory)
+const ProductTable = () => {
+  const productIdList = useAdminProductStore((state) => state.productIdList)
+  const addToProductIdList = useAdminProductStore((state) => state.addToProductIdList)
+  const removeFromProductIdList = useAdminProductStore((state) => state.removeFromProductIdList)
+  const setUpdatingProductId = useAdminProductStore((state) => state.setUpdatingProductId)
+  const setIsUpdatingProduct = useAdminProductStore((state) => state.setIsUpdatingProduct)
+  const productNameSearch = useAdminProductStore((state) => state.productNameSearch)
 
   const query = useQuery({
-    queryKey: ['category'],
-    queryFn: async (): Promise<(Category & { _count: { products: number } })[]> => {
-      const response = await fetch(`${ENV.API_URL}/category`)
+    queryKey: ['product'],
+    queryFn: async (): Promise<Product[]> => {
+      const response = await fetch(`${ENV.API_URL}/product?name=${productNameSearch}`)
       return (await response.json()).data
     },
   })
-  const categoryList = query.data || []
+  const productList = query.data || []
+
+  useEffect(() => {
+    query.refetch()
+  }, [query, productNameSearch])
 
   return (
-    <div className=" max-h-[calc(100vh-200px)] overflow-y-auto overflow-x-auto">
+    <div className=" max-h-[calc(100vh-300px)] overflow-y-auto overflow-x-auto">
       <Table hoverable>
         <TableHead>
           <TableHeadCell className="p-4">
             <Checkbox
               color="cyan"
-              checked={categoryList.length === categoryIdList.length && categoryList.length > 0}
+              checked={productList.length === productIdList.length && productList.length > 0}
               onChange={(e) => {
                 if (e.target.checked) {
-                  categoryList.forEach((category) => {
-                    addToCategoryIdList(category.id)
+                  productList.forEach((product) => {
+                    addToProductIdList(product.id)
                   })
                 } else {
-                  categoryList.forEach((category) => {
-                    removeFromCategoryIdList(category.id)
+                  productList.forEach((product) => {
+                    removeFromProductIdList(product.id)
                   })
                 }
               }}
@@ -58,7 +63,6 @@ const CategoryTable = () => {
           <TableHeadCell>Tên</TableHeadCell>
           <TableHeadCell>Tên không dấu</TableHeadCell>
           <TableHeadCell>Trạng thái</TableHeadCell>
-          <TableHeadCell>Số sản phẩm</TableHeadCell>
           <TableHeadCell>
             <span className="sr-only">Edit</span>
           </TableHeadCell>
@@ -70,41 +74,40 @@ const CategoryTable = () => {
                 <Spinner />
               </TableCell>
             </TableRow>
-          ) : categoryList.length === 0 ? (
+          ) : productList.length === 0 ? (
             <TableRow>
               <TableCell colSpan={7} className="text-center">
                 Không có dữ liệu
               </TableCell>
             </TableRow>
           ) : (
-            categoryList.map((category) => (
-              <TableRow key={category.id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
+            productList.map((product) => (
+              <TableRow key={product.id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
                 <TableCell className="p-4">
                   <Checkbox
                     color="cyan"
-                    checked={categoryIdList.includes(category.id)}
+                    checked={productIdList.includes(product.id)}
                     onChange={(e) => {
                       if (e.target.checked) {
-                        addToCategoryIdList(category.id)
+                        addToProductIdList(product.id)
                       } else {
-                        removeFromCategoryIdList(category.id)
+                        removeFromProductIdList(product.id)
                       }
                     }}
                   />
                 </TableCell>
-                <TableCell>{category.id}</TableCell>
-                <TableCell>{category.name}</TableCell>
-                <TableCell>{category.simplifiedName}</TableCell>
-                <TableCell>{category.isPublished ? 'Đã hiển thị' : 'Chưa hiển thị'}</TableCell>
-                <TableCell>{category._count.products}</TableCell>
+                <TableCell>{product.id}</TableCell>
+                <TableCell>{product.name}</TableCell>
+                <TableCell>{product.simplifiedName}</TableCell>
+                <TableCell>{product.isPublished ? 'Đã hiển thị' : 'Chưa hiển thị'}</TableCell>
                 <TableCell>
                   <Button
                     size={'xs'}
                     color="transparent"
                     className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
                     onClick={() => {
-                      setIsUpdatingCategory(true)
-                      setUpdatingCategoryId(category.id)
+                      setIsUpdatingProduct(true)
+                      setUpdatingProductId(product.id)
                     }}
                   >
                     <MdModeEditOutline className="h-6 w-6" />
@@ -119,4 +122,4 @@ const CategoryTable = () => {
   )
 }
 
-export default CategoryTable
+export default ProductTable

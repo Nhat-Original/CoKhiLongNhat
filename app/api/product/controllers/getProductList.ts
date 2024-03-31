@@ -4,8 +4,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import prisma from '@/prisma'
 
 const SEARCH_PARAMS = {
-  CATEGORY_QUERY: 'phan-loai',
-  NAME_QUERY: 'ten',
+  CATEGORY_QUERY: 'category',
+  NAME_QUERY: 'name',
 }
 
 const getProductList = async (request: NextRequest) => {
@@ -21,6 +21,9 @@ const getProductList = async (request: NextRequest) => {
       name: {
         contains: nameQuery || '',
       },
+    },
+    orderBy: {
+      simplifiedName: 'asc',
     },
   })
 

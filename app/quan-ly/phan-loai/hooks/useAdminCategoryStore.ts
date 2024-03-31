@@ -1,44 +1,37 @@
 import { create } from 'zustand'
 
-type CreateCategorySchema = {
-  name: string
-  description: string | null
-  isPublished: boolean
-}
-type UpdateCategorySchema = {
+type CategorySchema = {
   name: string
   description: string | null
   isPublished: boolean
 }
 
 type AdminCategoryStore = {
-  createCategorySchema: CreateCategorySchema
-  updateCategorySchema: UpdateCategorySchema
+  createCategorySchema: CategorySchema
+  updateCategorySchema: CategorySchema
   categoryIdList: string[]
   addToCategoryIdList: (categoryId: string) => void
   removeFromCategoryIdList: (categoryId: string) => void
   clearCategoryIdList: () => void
-  setCreateCategorySchema: (schema: CreateCategorySchema) => void
+  setCreateCategorySchema: (schema: CategorySchema) => void
   clearCreateCategorySchema: () => void
   isUpdatingCategory: boolean
   setIsUpdatingCategory: (isUpdating: boolean) => void
   updatingCategoryId: string
   setUpdatingCategoryId: (id: string) => void
-  setUpdateCategorySchema: (schema: UpdateCategorySchema) => void
+  setUpdateCategorySchema: (schema: CategorySchema) => void
   clearUpdateCategorySchema: () => void
 }
 
+const initialCategorySchema: CategorySchema = {
+  name: '',
+  description: null,
+  isPublished: false,
+}
+
 const useAdminCategoryStore = create<AdminCategoryStore>((set) => ({
-  createCategorySchema: {
-    name: '',
-    description: '',
-    isPublished: false,
-  },
-  updateCategorySchema: {
-    name: '',
-    description: '',
-    isPublished: false,
-  },
+  createCategorySchema: initialCategorySchema,
+  updateCategorySchema: initialCategorySchema,
   categoryIdList: [],
   addToCategoryIdList: (categoryId: string) => {
     set((state) => {
@@ -54,11 +47,11 @@ const useAdminCategoryStore = create<AdminCategoryStore>((set) => ({
   clearCategoryIdList: () => {
     set({ categoryIdList: [] })
   },
-  setCreateCategorySchema: (schema: CreateCategorySchema) => {
+  setCreateCategorySchema: (schema: CategorySchema) => {
     set({ createCategorySchema: schema })
   },
   clearCreateCategorySchema: () => {
-    set({ createCategorySchema: { name: '', description: '', isPublished: false } })
+    set({ createCategorySchema: initialCategorySchema })
   },
   isUpdatingCategory: false,
   setIsUpdatingCategory: (isUpdating: boolean) => {
@@ -68,11 +61,11 @@ const useAdminCategoryStore = create<AdminCategoryStore>((set) => ({
   setUpdatingCategoryId: (id: string) => {
     set({ updatingCategoryId: id })
   },
-  setUpdateCategorySchema: (schema: UpdateCategorySchema) => {
+  setUpdateCategorySchema: (schema: CategorySchema) => {
     set({ updateCategorySchema: schema })
   },
   clearUpdateCategorySchema: () => {
-    set({ updateCategorySchema: { name: '', description: '', isPublished: false } })
+    set({ updateCategorySchema: initialCategorySchema })
   },
 }))
 
