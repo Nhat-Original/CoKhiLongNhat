@@ -1,4 +1,5 @@
 'use client'
+import React from 'react'
 import { Button, Modal, ModalBody, ModalHeader } from 'flowbite-react'
 import { useState } from 'react'
 import { HiOutlineExclamationCircle } from 'react-icons/hi'
@@ -12,9 +13,10 @@ const DeleteCategoryModal = () => {
   const categoryIdList = useAdminCategoryStore((state) => state.categoryIdList)
   const clearCategoryIdList = useAdminCategoryStore((state) => state.clearCategoryIdList)
   const [openModal, setOpenModal] = useState(false)
+
   const deleteCategory = useMutation({
     mutationFn: async (id: string) => {
-      const response = await fetch(`${ENV.API_URL}category/${id}`, {
+      const response = await fetch(`${ENV.API_URL}/category/${id}`, {
         method: 'DELETE',
       })
       const objectResponse = await response.json()
@@ -41,7 +43,7 @@ const DeleteCategoryModal = () => {
           <div className="text-center">
             <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
             <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-              bạn có chắc chắn muốn xóa {categoryIdList.length} phân loại, những sản phẩm thuộc phân loại bị xóa sẽ
+              Bạn có chắc chắn muốn xóa {categoryIdList.length} phân loại, những sản phẩm thuộc phân loại bị xóa sẽ
               không còn phân loại?
             </h3>
             <div className="flex justify-center gap-4">

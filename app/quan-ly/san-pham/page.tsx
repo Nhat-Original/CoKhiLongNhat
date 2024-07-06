@@ -2,18 +2,17 @@ import React from 'react'
 import CreateProductModal from './components/CreateProductModal'
 import ProductTable from './components/ProductTable'
 import SearchProductBar from './components/SearchProductBar'
-// import UpdateProductModal from './components/UpdateProductModal'
-// import DeleteProductModal from './components/DeleteProductModal'
+import CategoryFilter from './components/CategoryFilter'
+import DeleteProductModal from './components/DeleteProductModal'
 
 const AdminProductPage = () => {
   return (
     <div>
-      <SearchProductBar />
-      <div className=" flex gap-4">
+      <div className="flex items-center gap-4">
+        <SearchProductBar />
+        <CategoryFilter />
         <CreateProductModal />
-        {/* <CreateProductModal />
-        <UpdateProductModal />
-        <DeleteProductModal /> */}
+        <DeleteProductModal />
       </div>
       <ProductTable />
     </div>

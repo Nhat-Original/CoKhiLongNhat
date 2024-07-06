@@ -1,5 +1,5 @@
 import getProductBySimplifiedName from './getProductBySimplifiedName'
 import updateProductBySimplifiedName from './updateProductBySimplifiedName'
-import removeProductBySimplifiedName from './removeProductBySimplifiedName'
+import removeProductById from './removeProductById'
 
-export { getProductBySimplifiedName, updateProductBySimplifiedName, removeProductBySimplifiedName }
+export { getProductBySimplifiedName, updateProductBySimplifiedName, removeProductById }

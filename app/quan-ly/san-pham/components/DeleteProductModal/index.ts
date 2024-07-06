@@ -1,3 +1,3 @@
-import DeleteCategoryModal from './DeleteProductModal'
+import DeleteProductModal from './DeleteProductModal'
 
-export default DeleteCategoryModal
+export default DeleteProductModal

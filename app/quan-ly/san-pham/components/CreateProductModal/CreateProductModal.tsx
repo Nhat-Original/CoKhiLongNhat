@@ -1,22 +1,33 @@
+// TODO: upload images feature
 'use client'
 import React from 'react'
 import { Button, Label, Modal, ModalBody, ModalHeader, Select, TextInput, Textarea, ToggleSwitch } from 'flowbite-react'
 import { useState } from 'react'
-import useAdminProductStore from '../../hooks/useAdminProductStore'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { ENV } from '@/utils/constant'
 import { toast } from 'react-toastify'
 import { queryClient } from '@/components/Providers/QueryProvider'
-import { PRODUCT_STATUS } from '@prisma/client'
+import { Category } from '@prisma/client'
+import { CreateProductSchema } from '@/app/api/product/schemas/createProductSchema'
+import useAdminProductStore from '../../hooks/useAdminProductStore'
 
 const CreateProductModal = () => {
   const [openModal, setOpenModal] = useState(false)
   const createProductSchema = useAdminProductStore((state) => state.createProductSchema)
   const setCreateProductSchema = useAdminProductStore((state) => state.setCreateProductSchema)
-  const clearCreateProductSchema = useAdminProductStore((state) => state.clearCreateProductSchema)
+  // const clearCreateProductSchema = useAdminProductStore((state) => state.clearCreateProductSchema)
+
+  const query = useQuery({
+    queryKey: ['category'],
+    queryFn: async (): Promise<(Category & { _count: { products: number } })[]> => {
+      const response = await fetch(`${ENV.API_URL}/category`)
+      return (await response.json()).data
+    },
+  })
+  const categoryList = query.data || []
 
   const createProduct = useMutation({
-    mutationFn: async (product: { name: string; description: string | null; isPublished: boolean }) => {
+    mutationFn: async (product: CreateProductSchema) => {
       const response = await fetch(`${ENV.API_URL}/product`, {
         method: 'POST',
         body: JSON.stringify(product),
@@ -56,17 +67,32 @@ const CreateProductModal = () => {
             onSubmit={(e) => {
               e.preventDefault()
               createProduct.mutate(createProductSchema)
-              clearCreateProductSchema()
+              // clearCreateProductSchema()
             }}
           >
             <div>
-              <div className="mb-2 block">
-                <Label htmlFor="product-name" value="Tên*" />
-              </div>
+              <Label htmlFor="product-category">phân loại*</Label>
+              <Select
+                id="product-category"
+                onChange={(e) => setCreateProductSchema({ ...createProductSchema, categoryId: e.target.value })}
+                defaultValue={createProductSchema.name}
+              >
+                <option className="font-semibold" key="0" value="0">
+                  Không phân loại
+                </option>
+                {categoryList.map((category) => (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
+                ))}
+              </Select>
+            </div>
+
+            <div>
+              <Label htmlFor="product-name">Tên sản phẩm*</Label>
               <TextInput
                 id="product-name"
                 type="text"
-                placeholder="..."
                 required
                 value={createProductSchema.name}
                 min={1}
@@ -76,103 +102,75 @@ const CreateProductModal = () => {
                 }}
               />
             </div>
+
             <div>
-              <div className="mb-2 block">
-                <Label htmlFor="product-description" value="Mô tả" />
-              </div>
+              <Label htmlFor="product-description">Mô tả</Label>
               <Textarea
                 id="product-description"
-                placeholder="..."
                 rows={4}
                 value={createProductSchema.description || ''}
                 onChange={(e) => {
-                  setCreateProductSchema({ ...createProductSchema, description: e.target.value })
+                  setCreateProductSchema({ ...createProductSchema, description: e.target.value || null })
                 }}
               />
             </div>
+
             <div>
-              <div className="mb-2 block">
-                <Label htmlFor="product-status" value="Trạng thái*" />
-              </div>
-              <Select
-                id="product-status"
-                required
-                value={createProductSchema.status!}
-                onChange={(e) => {
-                  setCreateProductSchema({ ...createProductSchema, status: e.target.value as PRODUCT_STATUS })
-                }}
-              >
-                <option
-                  selected={createProductSchema.status === PRODUCT_STATUS.AVAILABLE}
-                  value={PRODUCT_STATUS.AVAILABLE}
-                >
-                  Còn hàng
-                </option>
-                <option
-                  selected={createProductSchema.status === PRODUCT_STATUS.UNAVAILABLE}
-                  value={PRODUCT_STATUS.UNAVAILABLE}
-                >
-                  Hết hàng
-                </option>
+              <Label htmlFor="product-status">Trạng thái*</Label>
+              <Select id="product-status">
+                <option value="AVAILABLE">Còn hàng</option>
+                <option value="UNAVAILABLE">Hết hàng</option>
               </Select>
             </div>
+
             <div>
-              <div className="mb-2 block">
-                <Label htmlFor="product-price" value="Giá" />
-              </div>
+              <Label htmlFor="product-price">Giá</Label>
               <TextInput
                 id="product-price"
                 type="number"
-                placeholder="0"
-                required
-                value={createProductSchema.price!}
-                min={0}
+                value={Number(createProductSchema.price)}
                 onChange={(e) => {
-                  setCreateProductSchema({ ...createProductSchema, price: +e.target.value })
+                  setCreateProductSchema({ ...createProductSchema, price: BigInt(e.target.value) || null })
                 }}
               />
             </div>
+
             <div>
-              <div className="mb-2 block">
-                <Label htmlFor="product-quantity" value="Số lượng" />
-              </div>
+              <Label htmlFor="product-quantity">Số lượng</Label>
               <TextInput
                 id="product-quantity"
                 type="number"
-                placeholder="0"
-                required
-                value={createProductSchema.quantity!}
-                min={0}
+                value={Number(createProductSchema.quantity)}
                 onChange={(e) => {
-                  setCreateProductSchema({ ...createProductSchema, quantity: +e.target.value })
+                  setCreateProductSchema({ ...createProductSchema, quantity: Number(e.target.value) || null })
                 }}
               />
             </div>
+
             <div>
-              <div className="mb-2 block">
-                <Label htmlFor="product-unit" value="Đơn vị" />
-              </div>
+              <Label htmlFor="product-unit">Đơn vị</Label>
               <TextInput
                 id="product-unit"
                 type="text"
-                placeholder="..."
-                required
-                value={createProductSchema.name}
+                value={createProductSchema.unit || ''}
                 min={1}
                 max={255}
                 onChange={(e) => {
-                  setCreateProductSchema({ ...createProductSchema, name: e.target.value })
+                  setCreateProductSchema({ ...createProductSchema, unit: e.target.value || null })
                 }}
               />
             </div>
-            <ToggleSwitch
-              checked={createProductSchema.isPublished}
-              label="Hiển thị công khai"
-              onChange={(checked: boolean) => {
-                setCreateProductSchema({ ...createProductSchema, isPublished: checked })
-              }}
-            />
-            <Button type="submit">Submit</Button>
+
+            <div className="flex gap-4 items-center">
+              <ToggleSwitch
+                checked={createProductSchema.isPublished}
+                label="Hiển thị công khai"
+                onChange={(checked: boolean) => {
+                  setCreateProductSchema({ ...createProductSchema, isPublished: checked })
+                }}
+              />
+            </div>
+            <Button type="submit">Tạo</Button>
           </form>
         </ModalBody>
       </Modal>

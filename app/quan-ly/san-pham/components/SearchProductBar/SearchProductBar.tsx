@@ -10,9 +10,10 @@ const SearchProductBar = () => {
   return (
     <div>
       <TextInput
+        width={200}
         type="text"
         sizing="sm"
-        placeholder="tìm kiếm tên sản phẩm"
+        placeholder="Tìm kiếm tên sản phẩm"
         value={productNameSearch}
         onChange={(e) => {
           setProductNameSearch(e.target.value)

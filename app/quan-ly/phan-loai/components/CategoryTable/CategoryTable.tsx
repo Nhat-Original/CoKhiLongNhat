@@ -56,8 +56,8 @@ const CategoryTable = () => {
           </TableHeadCell>
           <TableHeadCell>Id</TableHeadCell>
           <TableHeadCell>Tên</TableHeadCell>
-          <TableHeadCell>Tên không dấu</TableHeadCell>
-          <TableHeadCell>Trạng thái</TableHeadCell>
+          <TableHeadCell>Tên tối giản</TableHeadCell>
+          <TableHeadCell>hiển thị</TableHeadCell>
           <TableHeadCell>Số sản phẩm</TableHeadCell>
           <TableHeadCell>
             <span className="sr-only">Edit</span>

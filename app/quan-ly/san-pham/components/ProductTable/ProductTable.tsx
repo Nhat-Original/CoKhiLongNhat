@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect } from 'react'
+import React from 'react'
 import {
   Button,
   Checkbox,
@@ -16,27 +16,43 @@ import { ENV } from '@/utils/constant'
 import { Product } from '@prisma/client'
 import { MdModeEditOutline } from 'react-icons/md'
 import useAdminProductStore from '../../hooks/useAdminProductStore'
+import { useShallow } from 'zustand/react/shallow'
 
 const ProductTable = () => {
-  const productIdList = useAdminProductStore((state) => state.productIdList)
-  const addToProductIdList = useAdminProductStore((state) => state.addToProductIdList)
-  const removeFromProductIdList = useAdminProductStore((state) => state.removeFromProductIdList)
-  const setUpdatingProductId = useAdminProductStore((state) => state.setUpdatingProductId)
-  const setIsUpdatingProduct = useAdminProductStore((state) => state.setIsUpdatingProduct)
-  const productNameSearch = useAdminProductStore((state) => state.productNameSearch)
+  const [
+    productIdList,
+    addToProductIdList,
+    removeFromProductIdList,
+    setUpdatingProductId,
+    setIsUpdatingProduct,
+    productNameSearch,
+    productCategorySearch,
+  ] = useAdminProductStore(
+    useShallow((state) => [
+      state.productIdList,
+      state.addToProductIdList,
+      state.removeFromProductIdList,
+      state.setUpdatingProductId,
+      state.setIsUpdatingProduct,
+      state.productNameSearch,
+      state.productCategorySearch,
+    ]),
+  )
 
   const query = useQuery({
-    queryKey: ['product'],
-    queryFn: async (): Promise<Product[]> => {
-      const response = await fetch(`${ENV.API_URL}/product?name=${productNameSearch}`)
+    queryKey: ['product', productNameSearch, productCategorySearch],
+    queryFn: async (): Promise<
+      (Product & {
+        category: {
+          name: string
+        }
+      })[]
+    > => {
+      const response = await fetch(`${ENV.API_URL}/product?name=${productNameSearch}&category=${productCategorySearch}`)
       return (await response.json()).data
     },
   })
   const productList = query.data || []
-
-  useEffect(() => {
-    query.refetch()
-  }, [query, productNameSearch])
 
   return (
     <div className=" max-h-[calc(100vh-300px)] overflow-y-auto overflow-x-auto">
@@ -61,8 +77,9 @@ const ProductTable = () => {
           </TableHeadCell>
           <TableHeadCell>Id</TableHeadCell>
           <TableHeadCell>Tên</TableHeadCell>
-          <TableHeadCell>Tên không dấu</TableHeadCell>
-          <TableHeadCell>Trạng thái</TableHeadCell>
+          <TableHeadCell>Tên tối giản</TableHeadCell>
+          <TableHeadCell>Phân loại</TableHeadCell>
+          <TableHeadCell>Hiển thị</TableHeadCell>
           <TableHeadCell>
             <span className="sr-only">Edit</span>
           </TableHeadCell>
@@ -99,6 +116,7 @@ const ProductTable = () => {
                 <TableCell>{product.id}</TableCell>
                 <TableCell>{product.name}</TableCell>
                 <TableCell>{product.simplifiedName}</TableCell>
+                <TableCell>{product.category?.name}</TableCell>
                 <TableCell>{product.isPublished ? 'Đã hiển thị' : 'Chưa hiển thị'}</TableCell>
                 <TableCell>
                   <Button

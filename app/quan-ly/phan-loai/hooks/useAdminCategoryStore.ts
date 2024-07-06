@@ -1,10 +1,5 @@
 import { create } from 'zustand'
-
-type CategorySchema = {
-  name: string
-  description: string | null
-  isPublished: boolean
-}
+import type { CreateCategorySchema as CategorySchema } from '@/app/api/category/schemas/createCategorySchema'
 
 type AdminCategoryStore = {
   createCategorySchema: CategorySchema

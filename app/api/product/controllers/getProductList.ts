@@ -13,14 +13,29 @@ const getProductList = async (request: NextRequest) => {
   const categoryQuery = searchParams.get(SEARCH_PARAMS.CATEGORY_QUERY)
   const nameQuery = searchParams.get(SEARCH_PARAMS.NAME_QUERY)
 
+  let categoryFilter
+  if (categoryQuery != '*' && categoryQuery != '0') {
+    categoryFilter = {
+      simplifiedName: categoryQuery || '',
+    }
+  } else if (categoryQuery == '0') {
+    categoryFilter = {
+      is: null,
+    }
+  } else {
+    categoryFilter = {}
+  }
+
   const productList = await prisma.product.findMany({
     where: {
-      category: {
-        simplifiedName: categoryQuery || undefined,
-      },
+      category: categoryFilter,
       name: {
         contains: nameQuery || '',
+        mode: 'insensitive',
       },
+    },
+    include: {
+      category: true,
     },
     orderBy: {
       simplifiedName: 'asc',

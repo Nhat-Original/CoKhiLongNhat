@@ -3,12 +3,14 @@ import { STATUS_CODE } from '@/utils/constant'
 import standardResponse from '@/utils/standardResponese'
 import { NextRequest, NextResponse } from 'next/server'
 
-const removeProductBySimplifiedName = async (req: NextRequest) => {
-  const simplifiedName = req.nextUrl.pathname.split('/')[3]
+const removeProductById = async (req: NextRequest) => {
+  const id = req.nextUrl.pathname.split('/')[3]
+
+  console.log('id', id)
 
   const foundProduct = await prisma.product.findUnique({
     where: {
-      simplifiedName,
+      id,
     },
   })
 
@@ -18,15 +20,15 @@ const removeProductBySimplifiedName = async (req: NextRequest) => {
     })
   }
 
-  const deletedProduct = await prisma.product.delete({
+  await prisma.productImage.deleteMany({
     where: {
-      simplifiedName,
+      productId: id,
     },
   })
 
-  await prisma.productImage.deleteMany({
+  const deletedProduct = await prisma.product.delete({
     where: {
-      productId: deletedProduct.id,
+      id,
     },
   })
 
@@ -35,4 +37,4 @@ const removeProductBySimplifiedName = async (req: NextRequest) => {
   })
 }
 
-export default removeProductBySimplifiedName
+export default removeProductById

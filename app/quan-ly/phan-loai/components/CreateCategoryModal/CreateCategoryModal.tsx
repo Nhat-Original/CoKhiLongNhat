@@ -7,6 +7,7 @@ import { useMutation } from '@tanstack/react-query'
 import { ENV } from '@/utils/constant'
 import { toast } from 'react-toastify'
 import { queryClient } from '@/components/Providers/QueryProvider'
+import { CreateCategorySchema } from '@/app/api/category/schemas/createCategorySchema'
 
 const CreateCategoryModal = () => {
   const [openModal, setOpenModal] = useState(false)
@@ -15,7 +16,7 @@ const CreateCategoryModal = () => {
   const clearCreateCategorySchema = useAdminCategoryStore((state) => state.clearCreateCategorySchema)
 
   const createCategory = useMutation({
-    mutationFn: async (category: { name: string; description: string | null; isPublished: boolean }) => {
+    mutationFn: async (category: CreateCategorySchema) => {
       const response = await fetch(`${ENV.API_URL}/category`, {
         method: 'POST',
         body: JSON.stringify(category),
@@ -65,7 +66,6 @@ const CreateCategoryModal = () => {
               <TextInput
                 id="category-name"
                 type="text"
-                placeholder="..."
                 required
                 value={createCategorySchema.name}
                 min={1}
@@ -81,11 +81,10 @@ const CreateCategoryModal = () => {
               </div>
               <Textarea
                 id="category-description"
-                placeholder="..."
                 rows={4}
                 value={createCategorySchema.description || ''}
                 onChange={(e) => {
-                  setCreateCategorySchema({ ...createCategorySchema, description: e.target.value })
+                  setCreateCategorySchema({ ...createCategorySchema, description: e.target.value || null })
                 }}
               />
             </div>
@@ -96,7 +95,7 @@ const CreateCategoryModal = () => {
                 setCreateCategorySchema({ ...createCategorySchema, isPublished: checked })
               }}
             />
-            <Button type="submit">Submit</Button>
+            <Button type="submit">Tạo</Button>
           </form>
         </ModalBody>
       </Modal>

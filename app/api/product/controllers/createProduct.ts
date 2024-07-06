@@ -7,6 +7,7 @@ import { CreateProductSchema, createProductSchema } from '../schemas/createProdu
 
 const createProduct = async (req: NextRequest) => {
   const body = (await req.json()) as CreateProductSchema
+  console.log('body', body)
   const validation = createProductSchema.safeParse(body)
 
   if (!validation.success) {
@@ -15,23 +16,25 @@ const createProduct = async (req: NextRequest) => {
     })
   }
 
-  const foundCategory = await prisma.category.findUnique({
-    where: {
-      id: body.categoryId || undefined,
-    },
-  })
-  if (!foundCategory) {
-    return NextResponse.json(standardResponse(STATUS_CODE.NOT_FOUND, 'Category not found'), {
-      status: STATUS_CODE.NOT_FOUND,
-    })
-  }
-  if (!foundCategory.isPublished && body.isPublished) {
-    return NextResponse.json(
-      standardResponse(STATUS_CODE.BAD_REQUEST, 'Cannot publish product if category is not published'),
-      {
-        status: STATUS_CODE.BAD_REQUEST,
+  if (body.categoryId !== '0') {
+    const foundCategory = await prisma.category.findUnique({
+      where: {
+        id: body.categoryId || undefined,
       },
-    )
+    })
+    if (!foundCategory) {
+      return NextResponse.json(standardResponse(STATUS_CODE.NOT_FOUND, 'Category not found'), {
+        status: STATUS_CODE.NOT_FOUND,
+      })
+    }
+    if (!foundCategory.isPublished && body.isPublished) {
+      return NextResponse.json(
+        standardResponse(STATUS_CODE.BAD_REQUEST, 'Cannot publish product if category is not published'),
+        {
+          status: STATUS_CODE.BAD_REQUEST,
+        },
+      )
+    }
   }
 
   const simplifiedName = simplifyName(body.name)
@@ -51,7 +54,7 @@ const createProduct = async (req: NextRequest) => {
 
   const newProduct = await prisma.product.create({
     data: {
-      categoryId: body.categoryId,
+      categoryId: body.categoryId === '0' ? null : body.categoryId,
       name: body.name,
       simplifiedName: simplifiedName,
       description: body.description,

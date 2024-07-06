@@ -1,49 +1,49 @@
-import { PRODUCT_STATUS } from '@prisma/client'
 import { create } from 'zustand'
-
-type ProductSchema = {
-  name: string
-  description: string | null
-  status: PRODUCT_STATUS | null
-  price: number | null
-  quantity: number | null
-  unit: string | null
-  isPublished: boolean
-  productImages: string[]
-}
+import type { CreateProductSchema as ProductSchema } from '@/app/api/product/schemas/createProductSchema'
 
 type AdminProductStore = {
   productIdList: string[]
+  productNameSearch: string
+  productCategorySearch: string
+  createProductSchema: ProductSchema
+  isUpdatingProduct: boolean
+  updatingProductId: string
+  updateProductSchema: ProductSchema
+
   addToProductIdList: (ProductId: string) => void
   removeFromProductIdList: (ProductId: string) => void
   clearProductIdList: () => void
-  productNameSearch: string
   setProductNameSearch: (name: string) => void
-  createProductSchema: ProductSchema
+  setProductCategorySearch: (category: string) => void
   setCreateProductSchema: (schema: ProductSchema) => void
   clearCreateProductSchema: () => void
-  isUpdatingProduct: boolean
   setIsUpdatingProduct: (isUpdating: boolean) => void
-  updatingProductId: string
   setUpdatingProductId: (id: string) => void
-  updateProductSchema: ProductSchema
   setUpdateProductSchema: (schema: ProductSchema) => void
   clearUpdateProductSchema: () => void
 }
 
 const initialProductSchema: ProductSchema = {
   name: '',
-  description: '',
+  description: null,
   status: 'AVAILABLE',
-  price: 0,
-  quantity: 0,
-  unit: '',
+  price: null,
+  quantity: null,
+  unit: null,
   isPublished: false,
-  productImages: [],
+  productImages: null,
+  categoryId: '0',
 }
 
 const useAdminProductStore = create<AdminProductStore>((set) => ({
   productIdList: [],
+  productNameSearch: '',
+  productCategorySearch: '*',
+  createProductSchema: initialProductSchema,
+  isUpdatingProduct: false,
+  updatingProductId: '',
+  updateProductSchema: initialProductSchema,
+
   addToProductIdList: (ProductId: string) => {
     set((state) => {
       if (state.productIdList.includes(ProductId)) {
@@ -58,26 +58,24 @@ const useAdminProductStore = create<AdminProductStore>((set) => ({
   clearProductIdList: () => {
     set({ productIdList: [] })
   },
-  productNameSearch: '',
   setProductNameSearch: (name: string) => {
     set({ productNameSearch: name })
   },
-  createProductSchema: initialProductSchema,
+  setProductCategorySearch: (category: string) => {
+    set({ productCategorySearch: category })
+  },
   setCreateProductSchema: (schema: ProductSchema) => {
     set({ createProductSchema: schema })
   },
   clearCreateProductSchema: () => {
     set({ createProductSchema: initialProductSchema })
   },
-  isUpdatingProduct: false,
   setIsUpdatingProduct: (isUpdating: boolean) => {
     set({ isUpdatingProduct: isUpdating })
   },
-  updatingProductId: '',
   setUpdatingProductId: (id: string) => {
     set({ updatingProductId: id })
   },
-  updateProductSchema: initialProductSchema,
   setUpdateProductSchema: (schema: ProductSchema) => {
     set({ updateProductSchema: schema })
   },
