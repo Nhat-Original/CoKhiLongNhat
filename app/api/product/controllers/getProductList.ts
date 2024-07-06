@@ -12,6 +12,8 @@ const getProductList = async (request: NextRequest) => {
   const searchParams = request.nextUrl.searchParams
   const categoryQuery = searchParams.get(SEARCH_PARAMS.CATEGORY_QUERY)
   const nameQuery = searchParams.get(SEARCH_PARAMS.NAME_QUERY)
+  const publishedQuery = searchParams.get(SEARCH_PARAMS.PUBLISHED_QUERY)
+  const limitQuery = searchParams.get(SEARCH_PARAMS.LIMIT_QUERY)
 
   let categoryFilter
   if (categoryQuery != '*' && categoryQuery != '0') {
