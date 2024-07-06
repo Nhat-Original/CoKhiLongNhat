@@ -34,7 +34,7 @@ const CategoryTable = () => {
   const categoryList = query.data || []
 
   return (
-    <div className="overflow-x-auto">
+    <div className=" max-h-[calc(100vh-200px)] overflow-y-auto overflow-x-auto">
       <Table hoverable>
         <TableHead>
           <TableHeadCell className="p-4">
@@ -56,8 +56,8 @@ const CategoryTable = () => {
           </TableHeadCell>
           <TableHeadCell>Id</TableHeadCell>
           <TableHeadCell>Tên</TableHeadCell>
-          <TableHeadCell>Tên không dấu</TableHeadCell>
-          <TableHeadCell>Trạng thái</TableHeadCell>
+          <TableHeadCell>Tên tối giản</TableHeadCell>
+          <TableHeadCell>hiển thị</TableHeadCell>
           <TableHeadCell>Số sản phẩm</TableHeadCell>
           <TableHeadCell>
             <span className="sr-only">Edit</span>

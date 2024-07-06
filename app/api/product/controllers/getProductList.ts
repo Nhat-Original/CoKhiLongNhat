@@ -4,10 +4,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import prisma from '@/prisma'
 
 const SEARCH_PARAMS = {
-  PUBLISHED_QUERY: 'is-published',
   CATEGORY_QUERY: 'category',
   NAME_QUERY: 'name',
-  LIMIT_QUERY: 'limit',
 }
 
 const getProductList = async (request: NextRequest) => {
@@ -17,20 +15,33 @@ const getProductList = async (request: NextRequest) => {
   const publishedQuery = searchParams.get(SEARCH_PARAMS.PUBLISHED_QUERY)
   const limitQuery = searchParams.get(SEARCH_PARAMS.LIMIT_QUERY)
 
+  let categoryFilter
+  if (categoryQuery != '*' && categoryQuery != '0') {
+    categoryFilter = {
+      simplifiedName: categoryQuery || '',
+    }
+  } else if (categoryQuery == '0') {
+    categoryFilter = {
+      is: null,
+    }
+  } else {
+    categoryFilter = {}
+  }
+
   const productList = await prisma.product.findMany({
     where: {
-      isPublished: publishedQuery === 'true' ? true : publishedQuery === 'false' ? false : undefined,
-      category: {
-        simplifiedName: categoryQuery || undefined,
-      },
+      category: categoryFilter,
       name: {
         contains: nameQuery || '',
+        mode: 'insensitive',
       },
     },
     include: {
-      productImages: true,
+      category: true,
     },
-    take: limitQuery ? parseInt(limitQuery) : undefined,
+    orderBy: {
+      simplifiedName: 'asc',
+    },
   })
 
   return NextResponse.json(standardResponse(STATUS_CODE.OK, 'Get product list successfully', productList), {

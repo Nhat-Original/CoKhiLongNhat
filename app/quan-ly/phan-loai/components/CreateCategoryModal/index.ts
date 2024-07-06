@@ -1,3 +1,3 @@
-import CreateCategoryModal from './CreateCateforyModal'
+import CreateCategoryModal from './CreateCategoryModal'
 
 export default CreateCategoryModal

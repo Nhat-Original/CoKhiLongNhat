@@ -46,7 +46,7 @@ const UpdateCategoryModal = () => {
   }, [category, setUpdateCategorySchema])
 
   const updateCategory = useMutation({
-    mutationFn: async (category: { name: string; description: string | null; isPublished: boolean }) => {
+    mutationFn: async (category: { name: string; description?: string | null; isPublished: boolean }) => {
       const response = await fetch(`${ENV.API_URL}/category/${updatingCategoryId}`, {
         method: 'PATCH',
         body: JSON.stringify(category),
@@ -102,7 +102,6 @@ const UpdateCategoryModal = () => {
               <TextInput
                 id="category-name"
                 type="text"
-                placeholder="..."
                 required
                 value={updateCategorySchema.name}
                 min={1}
@@ -118,7 +117,6 @@ const UpdateCategoryModal = () => {
               </div>
               <Textarea
                 id="category-description"
-                placeholder="..."
                 rows={4}
                 value={updateCategorySchema.description || ''}
                 onChange={(e) => {

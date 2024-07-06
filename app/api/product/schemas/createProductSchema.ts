@@ -2,7 +2,7 @@ import { PRODUCT_STATUS } from '@prisma/client'
 import { z } from 'zod'
 
 const createProductSchema = z.object({
-  categoryId: z.string().trim().cuid().nullish(),
+  categoryId: z.string().trim().nullish(),
   name: z.string().trim().toLowerCase().min(1).max(255),
   description: z.string().trim().toLowerCase().nullish(),
   status: z.enum([PRODUCT_STATUS.AVAILABLE, PRODUCT_STATUS.UNAVAILABLE]),
