@@ -4,6 +4,8 @@ import ProductTable from './components/ProductTable'
 import SearchProductBar from './components/SearchProductBar'
 import CategoryFilter from './components/CategoryFilter'
 import DeleteProductModal from './components/DeleteProductModal'
+import UpdateProductModal from './components/UpdateProductModal'
+import UpdateProductImageModal from './components/UpdateProductImageModal'
 
 const AdminProductPage = () => {
   return (
@@ -12,6 +14,8 @@ const AdminProductPage = () => {
         <SearchProductBar />
         <CategoryFilter />
         <CreateProductModal />
+        <UpdateProductModal />
+        <UpdateProductImageModal />
         <DeleteProductModal />
       </div>
       <ProductTable />

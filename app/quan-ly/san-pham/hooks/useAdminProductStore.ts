@@ -7,8 +7,10 @@ type AdminProductStore = {
   productCategorySearch: string
   createProductSchema: ProductSchema
   isUpdatingProduct: boolean
+  isUpdatingImages: boolean
   updatingProductId: string
   updateProductSchema: ProductSchema
+  updateProductImagesSchema: { productImages: string[] }
 
   addToProductIdList: (ProductId: string) => void
   removeFromProductIdList: (ProductId: string) => void
@@ -18,9 +20,12 @@ type AdminProductStore = {
   setCreateProductSchema: (schema: ProductSchema) => void
   clearCreateProductSchema: () => void
   setIsUpdatingProduct: (isUpdating: boolean) => void
+  setIsUpdatingImages: (isUpdating: boolean) => void
   setUpdatingProductId: (id: string) => void
   setUpdateProductSchema: (schema: ProductSchema) => void
   clearUpdateProductSchema: () => void
+  setUpdateProductImagesSchema: (schema: { productImages: string[] }) => void
+  clearUpdateProductImagesSchema: () => void
 }
 
 const initialProductSchema: ProductSchema = {
@@ -41,8 +46,10 @@ const useAdminProductStore = create<AdminProductStore>((set) => ({
   productCategorySearch: '*',
   createProductSchema: initialProductSchema,
   isUpdatingProduct: false,
+  isUpdatingImages: false,
   updatingProductId: '',
   updateProductSchema: initialProductSchema,
+  updateProductImagesSchema: { productImages: [] },
 
   addToProductIdList: (ProductId: string) => {
     set((state) => {
@@ -73,6 +80,9 @@ const useAdminProductStore = create<AdminProductStore>((set) => ({
   setIsUpdatingProduct: (isUpdating: boolean) => {
     set({ isUpdatingProduct: isUpdating })
   },
+  setIsUpdatingImages: (isUpdating: boolean) => {
+    set({ isUpdatingImages: isUpdating })
+  },
   setUpdatingProductId: (id: string) => {
     set({ updatingProductId: id })
   },
@@ -81,6 +91,12 @@ const useAdminProductStore = create<AdminProductStore>((set) => ({
   },
   clearUpdateProductSchema: () => {
     set({ updateProductSchema: initialProductSchema })
+  },
+  setUpdateProductImagesSchema: (schema: { productImages: string[] }) => {
+    set({ updateProductImagesSchema: schema })
+  },
+  clearUpdateProductImagesSchema: () => {
+    set({ updateProductImagesSchema: { productImages: [] } })
   },
 }))
 

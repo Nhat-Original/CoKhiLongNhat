@@ -3,12 +3,15 @@ import { STATUS_CODE } from '@/utils/constant'
 import standardResponse from '@/utils/standardResponese'
 import { NextRequest, NextResponse } from 'next/server'
 
-const getProductBySimplifiedName = async (req: NextRequest) => {
-  const simplifiedName = req.nextUrl.pathname.split('/')[3]
+const getProductById = async (req: NextRequest) => {
+  const id = req.nextUrl.pathname.split('/')[3]
 
   const foundProduct = await prisma.product.findUnique({
     where: {
-      simplifiedName,
+      id,
+    },
+    include: {
+      productImages: true,
     },
   })
 
@@ -23,4 +26,4 @@ const getProductBySimplifiedName = async (req: NextRequest) => {
   })
 }
 
-export default getProductBySimplifiedName
+export default getProductById

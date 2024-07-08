@@ -7,7 +7,7 @@ import Link from 'next/link'
 
 const MainNavbar = () => {
   return (
-    <Navbar fluid rounded className="z-10">
+    <Navbar fluid rounded className="z-10 rounded-none">
       <NavbarBrand as={Link} prefetch={false} href="/">
         <Image alt="logo" src={'/images/favicon.ico'} width={50} height={50} />
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">COKHICHITIET</span>

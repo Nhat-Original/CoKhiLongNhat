@@ -17,6 +17,7 @@ import { ENV } from '@/utils/constant'
 import { toast } from 'react-toastify'
 import { queryClient } from '@/components/Providers/QueryProvider'
 import { Category } from '@prisma/client'
+import { CreateCategorySchema } from '@/app/api/category/schemas/createCategorySchema'
 
 const UpdateCategoryModal = () => {
   const updatingCategoryId = useAdminCategoryStore((state) => state.updatingCategoryId)
@@ -46,7 +47,7 @@ const UpdateCategoryModal = () => {
   }, [category, setUpdateCategorySchema])
 
   const updateCategory = useMutation({
-    mutationFn: async (category: { name: string; description?: string | null; isPublished: boolean }) => {
+    mutationFn: async (category: CreateCategorySchema) => {
       const response = await fetch(`${ENV.API_URL}/category/${updatingCategoryId}`, {
         method: 'PATCH',
         body: JSON.stringify(category),
@@ -124,14 +125,16 @@ const UpdateCategoryModal = () => {
                 }}
               />
             </div>
+            {/* temporary fix to set the disability of category to be always true */}
             <ToggleSwitch
+              disabled
               checked={updateCategorySchema.isPublished}
               label="Hiển thị công khai"
               onChange={(checked: boolean) => {
                 setUpdateCategorySchema({ ...updateCategorySchema, isPublished: checked })
               }}
             />
-            <Button type="submit">Submit</Button>
+            <Button type="submit">Cập nhật</Button>
           </form>
         )}
       </ModalBody>

@@ -21,7 +21,7 @@ type AdminCategoryStore = {
 const initialCategorySchema: CategorySchema = {
   name: '',
   description: null,
-  isPublished: false,
+  isPublished: true,
 }
 
 const useAdminCategoryStore = create<AdminCategoryStore>((set) => ({

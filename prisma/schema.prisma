@@ -68,7 +68,7 @@ model Product {
   simplifiedName String         @unique @db.VarChar(255)
   description    String?        @db.Text
   status         PRODUCT_STATUS @default(AVAILABLE)
-  price          BigInt?
+  price          Int?
   quantity       Int?
   unit           String?        @db.VarChar(20)
   isPublished    Boolean        @default(false)

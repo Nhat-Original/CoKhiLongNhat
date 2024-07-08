@@ -5,8 +5,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import simplifyName from '@/utils/simplifyName'
 import { UpdateProductSchema, updateProductSchema } from '../schemas/updateProductSchema'
 
-const updateProductBySimplifiedName = async (req: NextRequest) => {
-  const simplifiedName = req.nextUrl.pathname.split('/')[3]
+const updateProductById = async (req: NextRequest) => {
+  const id = req.nextUrl.pathname.split('/')[3]
 
   const body = (await req.json()) as UpdateProductSchema
   const validation = updateProductSchema.safeParse(body)
@@ -19,7 +19,7 @@ const updateProductBySimplifiedName = async (req: NextRequest) => {
 
   const foundProduct = await prisma.product.findUnique({
     where: {
-      simplifiedName,
+      id,
     },
   })
   if (!foundProduct) {
@@ -48,10 +48,10 @@ const updateProductBySimplifiedName = async (req: NextRequest) => {
 
   const updatedProduct = await prisma.product.update({
     where: {
-      simplifiedName,
+      id,
     },
     data: {
-      categoryId: body.categoryId,
+      categoryId: body.categoryId === '0' ? null : body.categoryId,
       name: body.name,
       simplifiedName: newSimplifiedName,
       description: body.description,
@@ -68,4 +68,4 @@ const updateProductBySimplifiedName = async (req: NextRequest) => {
   })
 }
 
-export default updateProductBySimplifiedName
+export default updateProductById
