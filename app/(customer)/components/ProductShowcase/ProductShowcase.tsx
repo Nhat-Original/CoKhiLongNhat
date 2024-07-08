@@ -5,16 +5,17 @@ import { Product, ProductImage } from '@prisma/client'
 import { useQuery } from '@tanstack/react-query'
 import { Button, Card, Spinner } from 'flowbite-react'
 import Link from 'next/link'
+import productPlaceholder from '@/public/images/productPlaceholder.png'
 
 const ProductShowcase = () => {
   const query = useQuery({
     queryKey: ['product'],
     queryFn: async (): Promise<(Product & { productImages: ProductImage[] })[]> => {
-      const response = await fetch(`${ENV.API_URL}/product?limit=6&is-published=true`)
+      const response = await fetch(`${ENV.API_URL}/product?limit=6&published=true`)
       return (await response.json()).data
     },
   })
-  const categoryList = query.data || []
+  const productList = query.data || []
 
   return (
     <div>
@@ -24,15 +25,22 @@ const ProductShowcase = () => {
         <div className="w-full text-center">
           <Spinner />
         </div>
+      ) : productList.length === 0 ? (
+        <div className="w-full text-center">Chưa có sản phẩm nào</div>
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {categoryList.map((product) => (
+          {productList.map((product) => (
             <div key={product.id} className="w-full h-full">
               <Link href={`/san-pham/${product.simplifiedName}`}>
                 <Card
-                  className="max-w-sm mx-auto hover:scale-[1.01] cursor-pointer"
-                  imgAlt={product.simplifiedName}
-                  imgSrc={product.productImages[0].url}
+                  className="max-w-sm hover:scale-[1.01] cursor-pointer"
+                  renderImage={() => (
+                    <img
+                      className="w-full aspect-square object-cover rounded-t-md"
+                      src={product.productImages[0]?.url || productPlaceholder.src}
+                      alt={product.simplifiedName}
+                    />
+                  )}
                 >
                   <div className="text-sm text-gray-500">{product.name}</div>
                 </Card>

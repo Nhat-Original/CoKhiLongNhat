@@ -6,7 +6,7 @@ const updateProductSchema = z.object({
   name: z.string().trim().toLowerCase().min(1).max(255).optional(),
   description: z.string().trim().toLowerCase().nullish(),
   status: z.enum([PRODUCT_STATUS.AVAILABLE, PRODUCT_STATUS.UNAVAILABLE]).optional(),
-  price: z.bigint().positive().nullish(),
+  price: z.number().int().positive().nullish(),
   quantity: z.number().int().positive().nullish(),
   unit: z.string().trim().toLowerCase().min(1).max(20).nullish(),
   isPublished: z.boolean().optional(),

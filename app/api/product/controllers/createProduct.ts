@@ -7,7 +7,6 @@ import { CreateProductSchema, createProductSchema } from '../schemas/createProdu
 
 const createProduct = async (req: NextRequest) => {
   const body = (await req.json()) as CreateProductSchema
-  console.log('body', body)
   const validation = createProductSchema.safeParse(body)
 
   if (!validation.success) {
@@ -65,15 +64,6 @@ const createProduct = async (req: NextRequest) => {
       isPublished: body.isPublished,
     },
   })
-
-  if (body.productImages && body.productImages.length > 0) {
-    prisma.productImage.createMany({
-      data: body.productImages.map((url) => ({
-        productId: newProduct.id,
-        url: url,
-      })),
-    })
-  }
 
   return NextResponse.json(standardResponse(STATUS_CODE.CREATED, 'New product created', newProduct), {
     status: STATUS_CODE.CREATED,

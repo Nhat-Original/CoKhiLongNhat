@@ -6,6 +6,8 @@ import prisma from '@/prisma'
 const SEARCH_PARAMS = {
   CATEGORY_QUERY: 'category',
   NAME_QUERY: 'name',
+  PUBLISHED_QUERY: 'published',
+  LIMIT_QUERY: 'limit',
 }
 
 const getProductList = async (request: NextRequest) => {
@@ -16,13 +18,17 @@ const getProductList = async (request: NextRequest) => {
   const limitQuery = searchParams.get(SEARCH_PARAMS.LIMIT_QUERY)
 
   let categoryFilter
-  if (categoryQuery != '*' && categoryQuery != '0') {
-    categoryFilter = {
-      simplifiedName: categoryQuery || '',
-    }
-  } else if (categoryQuery == '0') {
-    categoryFilter = {
-      is: null,
+  if (categoryQuery) {
+    if (categoryQuery != '*' && categoryQuery != '0') {
+      categoryFilter = {
+        simplifiedName: categoryQuery || '',
+      }
+    } else if (categoryQuery == '0') {
+      categoryFilter = {
+        is: null,
+      }
+    } else {
+      categoryFilter = {}
     }
   } else {
     categoryFilter = {}
@@ -35,13 +41,16 @@ const getProductList = async (request: NextRequest) => {
         contains: nameQuery || '',
         mode: 'insensitive',
       },
+      isPublished: publishedQuery ? publishedQuery === 'true' : undefined,
     },
     include: {
       category: true,
+      productImages: true,
     },
     orderBy: {
       simplifiedName: 'asc',
     },
+    take: limitQuery ? parseInt(limitQuery) : undefined,
   })
 
   return NextResponse.json(standardResponse(STATUS_CODE.OK, 'Get product list successfully', productList), {

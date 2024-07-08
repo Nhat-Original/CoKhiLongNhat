@@ -1,4 +1,3 @@
-// TODO: upload images feature
 'use client'
 import React from 'react'
 import { Button, Label, Modal, ModalBody, ModalHeader, Select, TextInput, Textarea, ToggleSwitch } from 'flowbite-react'
@@ -15,7 +14,7 @@ const CreateProductModal = () => {
   const [openModal, setOpenModal] = useState(false)
   const createProductSchema = useAdminProductStore((state) => state.createProductSchema)
   const setCreateProductSchema = useAdminProductStore((state) => state.setCreateProductSchema)
-  // const clearCreateProductSchema = useAdminProductStore((state) => state.clearCreateProductSchema)
+  const clearCreateProductSchema = useAdminProductStore((state) => state.clearCreateProductSchema)
 
   const query = useQuery({
     queryKey: ['category'],
@@ -67,7 +66,7 @@ const CreateProductModal = () => {
             onSubmit={(e) => {
               e.preventDefault()
               createProduct.mutate(createProductSchema)
-              // clearCreateProductSchema()
+              clearCreateProductSchema()
             }}
           >
             <div>
@@ -128,9 +127,10 @@ const CreateProductModal = () => {
               <TextInput
                 id="product-price"
                 type="number"
+                pattern="[0-9]*"
                 value={Number(createProductSchema.price)}
                 onChange={(e) => {
-                  setCreateProductSchema({ ...createProductSchema, price: BigInt(e.target.value) || null })
+                  setCreateProductSchema({ ...createProductSchema, price: Number(e.target.value) || null })
                 }}
               />
             </div>

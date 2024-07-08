@@ -88,7 +88,9 @@ const CreateCategoryModal = () => {
                 }}
               />
             </div>
+            {/* temporary fix to set the disability of category to be always true */}
             <ToggleSwitch
+              disabled
               checked={createCategorySchema.isPublished}
               label="Hiển thị công khai"
               onChange={(checked: boolean) => {

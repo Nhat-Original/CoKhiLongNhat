@@ -19,29 +19,21 @@ const CategoryFilter = () => {
   })
   const categoryList = query.data || []
 
-  return (
-    <Select onChange={(e) => setProductCategorySearch(e.target.value)} defaultValue={productCategorySearch}>
-      {query.isLoading ? (
-        <option>
-          <Spinner />
+  return query.isLoading ? (
+    <Spinner />
+  ) : (
+    <Select sizing="sm" onChange={(e) => setProductCategorySearch(e.target.value)} defaultValue={productCategorySearch}>
+      <option className="font-semibold" key="*" value="*">
+        Tất cả
+      </option>
+      <option className="font-semibold" key="0" value="0">
+        Không phân loại
+      </option>
+      {categoryList.map((category) => (
+        <option key={category.id} value={category.simplifiedName}>
+          {category.name}
         </option>
-      ) : categoryList.length === 0 ? (
-        <>Không có dữ liệu</>
-      ) : (
-        <>
-          <option className="font-semibold" key="*" value="*">
-            Tất cả
-          </option>
-          <option className="font-semibold" key="0" value="0">
-            Không phân loại
-          </option>
-          {categoryList.map((category) => (
-            <option key={category.id} value={category.simplifiedName}>
-              {category.name}
-            </option>
-          ))}
-        </>
-      )}
+      ))}
     </Select>
   )
 }

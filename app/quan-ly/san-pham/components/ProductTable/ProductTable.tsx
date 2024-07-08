@@ -14,7 +14,7 @@ import {
 import { useQuery } from '@tanstack/react-query'
 import { ENV } from '@/utils/constant'
 import { Product } from '@prisma/client'
-import { MdModeEditOutline } from 'react-icons/md'
+import { MdModeEditOutline, MdImage } from 'react-icons/md'
 import useAdminProductStore from '../../hooks/useAdminProductStore'
 import { useShallow } from 'zustand/react/shallow'
 
@@ -25,6 +25,7 @@ const ProductTable = () => {
     removeFromProductIdList,
     setUpdatingProductId,
     setIsUpdatingProduct,
+    setIsUpdatingImages,
     productNameSearch,
     productCategorySearch,
   ] = useAdminProductStore(
@@ -34,6 +35,7 @@ const ProductTable = () => {
       state.removeFromProductIdList,
       state.setUpdatingProductId,
       state.setIsUpdatingProduct,
+      state.setIsUpdatingImages,
       state.productNameSearch,
       state.productCategorySearch,
     ]),
@@ -79,7 +81,11 @@ const ProductTable = () => {
           <TableHeadCell>Tên</TableHeadCell>
           <TableHeadCell>Tên tối giản</TableHeadCell>
           <TableHeadCell>Phân loại</TableHeadCell>
+          <TableHeadCell>Giá tiền</TableHeadCell>
           <TableHeadCell>Hiển thị</TableHeadCell>
+          <TableHeadCell>
+            <span className="sr-only">Add images</span>
+          </TableHeadCell>
           <TableHeadCell>
             <span className="sr-only">Edit</span>
           </TableHeadCell>
@@ -117,7 +123,28 @@ const ProductTable = () => {
                 <TableCell>{product.name}</TableCell>
                 <TableCell>{product.simplifiedName}</TableCell>
                 <TableCell>{product.category?.name}</TableCell>
+                <TableCell>
+                  {(() => {
+                    if (!product.price) return 'Chưa có giá tiền'
+                    else if (product.price && product.quantity && product.unit)
+                      return `${product.price.toLocaleString()}đ / ${product.quantity} ${product.unit}`
+                    else return `${product.price.toLocaleString()}đ`
+                  })()}
+                </TableCell>
                 <TableCell>{product.isPublished ? 'Đã hiển thị' : 'Chưa hiển thị'}</TableCell>
+                <TableCell>
+                  <Button
+                    size={'xs'}
+                    color="transparent"
+                    className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
+                    onClick={() => {
+                      setIsUpdatingImages(true)
+                      setUpdatingProductId(product.id)
+                    }}
+                  >
+                    <MdImage className="h-6 w-6" />
+                  </Button>
+                </TableCell>
                 <TableCell>
                   <Button
                     size={'xs'}
