@@ -34,7 +34,7 @@ const ProductShowcase = () => {
               <div className="max-w-[24rem] mx-auto">
                 <Link href={`/san-pham/${product.simplifiedName}`}>
                   <Card
-                    className="max-w-sm hover:scale-[1.01] cursor-pointer"
+                    className="max-w-sm hover:scale-[1.01] hover:opacity-95 cursor-pointer"
                     renderImage={() => (
                       <img
                         className="w-full aspect-square object-cover rounded-t-md"

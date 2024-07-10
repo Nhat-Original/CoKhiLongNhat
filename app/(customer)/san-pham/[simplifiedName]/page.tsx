@@ -5,12 +5,12 @@ import ProductDescription from './components/ProductDescription'
 
 const ProductDetailPage = () => {
   return (
-    <div className="my-12 flex flex-col border">
-      <div className="flex flex-col lg:flex-row">
+    <div className="my-12 flex flex-col">
+      <div className="flex flex-col gap-8 lg:flex-row">
         <ProductShowcase />
-        <ProductPreview />
         <ProductDescription />
       </div>
+      <ProductPreview />
     </div>
   )
 }
