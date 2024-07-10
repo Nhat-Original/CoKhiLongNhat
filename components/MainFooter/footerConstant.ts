@@ -1,6 +1,6 @@
 const CONTENT = {
   INFORMATION: {
-    PRESIDENT: 'Hoàng Minh Long',
+    PRESIDENT: '',
     ADDRESS: '',
   },
   CONTACT: {

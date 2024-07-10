@@ -107,7 +107,7 @@ const UpdateProductImageModal = () => {
             <div className="flex justify-center flex-wrap">
               {product?.productImages?.map((image) => (
                 <div className="w-36 aspect-square border relative" key={image.id}>
-                  <img className="w-full h-full object-cover" src={image.url} alt={`image ${image.id}`} />
+                  <img className="w-full h-full object-cover" src={image.url} alt={`product image ${image.id}`} />
                   <Button
                     size={'xs'}
                     color="transparent"

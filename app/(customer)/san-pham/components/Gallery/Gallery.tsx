@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ENV } from '@/utils/constant'
 import { Product, ProductImage } from '@prisma/client'
 import { useQuery } from '@tanstack/react-query'
@@ -24,7 +24,12 @@ const Gallery = () => {
     },
   })
   const productList = query.data || []
-  setProductCount(productList.length)
+
+  useEffect(() => {
+    if (query.isSuccess) {
+      setProductCount(productList.length)
+    }
+  }, [query.isSuccess, productList.length, setProductCount])
 
   return (
     <div>
@@ -41,7 +46,7 @@ const Gallery = () => {
               <div className="max-w-[24rem] mx-auto">
                 <Link href={`/san-pham/${product.simplifiedName}`}>
                   <Card
-                    className="max-w-sm hover:scale-[1.01] cursor-pointer"
+                    className="max-w-sm cursor-pointer hover:opacity-95 hover:scale-[1.01]"
                     renderImage={() => (
                       <img
                         className="w-full aspect-square object-cover rounded-t-md"

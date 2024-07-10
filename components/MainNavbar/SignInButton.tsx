@@ -9,7 +9,7 @@ const SigninButton = () => {
   if (status === 'authenticated') {
     return (
       <Dropdown
-        label={<Avatar alt="User avatar" img={session?.user.image || '/images/avatarPlaceholder.png'} rounded />}
+        label={<Avatar alt="user avatar" img={session?.user.image || '/images/avatarPlaceholder.png'} rounded />}
         arrowIcon={false}
         inline
       >

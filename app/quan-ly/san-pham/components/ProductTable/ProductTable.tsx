@@ -14,9 +14,10 @@ import {
 import { useQuery } from '@tanstack/react-query'
 import { ENV } from '@/utils/constant'
 import { Product } from '@prisma/client'
-import { MdModeEditOutline, MdImage } from 'react-icons/md'
+import { MdModeEditOutline, MdImage, MdVisibility } from 'react-icons/md'
 import useAdminProductStore from '../../hooks/useAdminProductStore'
 import { useShallow } from 'zustand/react/shallow'
+import Link from 'next/link'
 
 const ProductTable = () => {
   const [
@@ -89,6 +90,9 @@ const ProductTable = () => {
           <TableHeadCell>
             <span className="sr-only">Edit</span>
           </TableHeadCell>
+          <TableHeadCell>
+            <span className="sr-only">Link</span>
+          </TableHeadCell>
         </TableHead>
         <TableBody className="divide-y">
           {query.isLoading ? (
@@ -132,7 +136,7 @@ const ProductTable = () => {
                   })()}
                 </TableCell>
                 <TableCell>{product.isPublished ? 'Đã hiển thị' : 'Chưa hiển thị'}</TableCell>
-                <TableCell>
+                <TableCell className="p-0">
                   <Button
                     size={'xs'}
                     color="transparent"
@@ -145,7 +149,7 @@ const ProductTable = () => {
                     <MdImage className="h-6 w-6" />
                   </Button>
                 </TableCell>
-                <TableCell>
+                <TableCell className="p-0">
                   <Button
                     size={'xs'}
                     color="transparent"
@@ -157,6 +161,17 @@ const ProductTable = () => {
                   >
                     <MdModeEditOutline className="h-6 w-6" />
                   </Button>
+                </TableCell>
+                <TableCell className="p-0">
+                  <Link href={`/san-pham/${product.simplifiedName}`}>
+                    <Button
+                      size={'xs'}
+                      color="transparent"
+                      className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
+                    >
+                      <MdVisibility className="h-6 w-6" />
+                    </Button>
+                  </Link>
                 </TableCell>
               </TableRow>
             ))

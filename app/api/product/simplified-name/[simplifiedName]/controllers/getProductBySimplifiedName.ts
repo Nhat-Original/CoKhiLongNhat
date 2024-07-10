@@ -12,6 +12,7 @@ const getProductBySimplifiedName = async (req: NextRequest) => {
     },
     include: {
       productImages: true,
+      category: true,
     },
   })
 
