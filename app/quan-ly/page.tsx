@@ -1,7 +1,7 @@
 import React from 'react'
 
 const AdminPage = () => {
-  return <div className="border"></div>
+  return <div></div>
 }
 
 export default AdminPage

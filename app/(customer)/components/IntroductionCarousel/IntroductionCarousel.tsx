@@ -7,7 +7,7 @@ import Link from 'next/link'
 const IntroductionCarousel = () => {
   return (
     <div className="h-80">
-      <Carousel slideInterval={3000} pauseOnHover>
+      <Carousel slideInterval={3000} pauseOnHover indicators={true}>
         <div className="w-full h-full">
           <img className=" w-full h-full object-cover opacity-90" alt="introduction" src={showcaseImage1.src} />
           <div className="text-white text-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-4">
