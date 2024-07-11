@@ -4,6 +4,7 @@ import useProductDetailStore from '../../hooks/useProductDetailStore'
 import { useShallow } from 'zustand/react/shallow'
 import { Badge, Button } from 'flowbite-react'
 import Link from 'next/link'
+import FavoriteButton from './FavoriteButton'
 
 const ProductDescription = () => {
   const [product] = useProductDetailStore(useShallow((state) => [state.product]))
@@ -11,6 +12,7 @@ const ProductDescription = () => {
   return (
     <div className="flex flex-col gap-8">
       <div className="flex flex-wrap items-center gap-2">
+        <FavoriteButton productId={product?.id || ''} />
         <div className="font-semibold text-2xl uppercase">{product?.name}</div>
         <Badge size={'sm'} color="info">
           {product?.category?.name || 'Không phân loại'}
