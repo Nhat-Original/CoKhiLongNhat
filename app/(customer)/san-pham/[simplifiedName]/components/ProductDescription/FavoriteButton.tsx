@@ -5,9 +5,9 @@ import { MdFavoriteBorder, MdFavorite } from 'react-icons/md'
 import useProductDetailStore from '../../hooks/useProductDetailStore'
 import { useShallow } from 'zustand/react/shallow'
 
-const FavoriteButton = ({ productId }: { productId: string }) => {
-  const [isFavorite, setIsFavorite] = useProductDetailStore(
-    useShallow((state) => [state.isFavorite, state.setIsFavorite]),
+const FavoriteButton = () => {
+  const [product, isFavorite, setIsFavorite] = useProductDetailStore(
+    useShallow((state) => [state.product, state.isFavorite, state.setIsFavorite]),
   )
 
   return (
@@ -18,16 +18,16 @@ const FavoriteButton = ({ productId }: { productId: string }) => {
       onClick={() => {
         if (isFavorite) {
           localStorage.setItem(
-            'isFavorite',
+            'favoriteProducts',
             JSON.stringify(
-              (JSON.parse(localStorage.getItem('isFavorite') || '[]') as string[]).filter((id) => id !== productId),
+              (JSON.parse(localStorage.getItem('isFavorite') || '[]') as string[]).filter((id) => id !== product?.id),
             ),
           )
           setIsFavorite(false)
         } else {
           localStorage.setItem(
-            'isFavorite',
-            JSON.stringify([...(JSON.parse(localStorage.getItem('isFavorite') || '[]') as string[]), productId]),
+            'favoriteProducts',
+            JSON.stringify([...(JSON.parse(localStorage.getItem('isFavorite') || '[]') as string[]), product?.id]),
           )
           setIsFavorite(true)
         }
