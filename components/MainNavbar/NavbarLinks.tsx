@@ -18,9 +18,9 @@ const NavbarLinks = () => {
       <NavbarLink as={Link} prefetch={false} active={path.startsWith('/san-pham')} href="/san-pham">
         Sản phẩm
       </NavbarLink>
-      <NavbarLink as={Link} prefetch={false} active={path.startsWith('/ho-tro')} href="/ho-tro">
+      {/* <NavbarLink as={Link} prefetch={false} active={path.startsWith('/yeu-thich')} href="/ho-tro">
         Yêu thích
-      </NavbarLink>
+      </NavbarLink> */}
       <NavbarLink as={Link} prefetch={false} active={path.startsWith('/lien-he')} href="/lien-he">
         Liên hệ
       </NavbarLink>
