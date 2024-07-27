@@ -1,5 +1,8 @@
-/** @type {import('next').NextConfig} */
+/**
+ * @type {import('next').NextConfig}
+ */
 const nextConfig = {
+  crossOrigin: 'anonymous',
   images: {
     remotePatterns: [{ hostname: 'lh3.googleusercontent.com' }],
   },
@@ -14,12 +17,13 @@ const nextConfig = {
           },
           {
             key: 'Access-Control-Allow-Origin',
-            value: process.env.ALLOWED_ORIGIN || '*',
+            value: process.env.NEXT_PUBLIC_ALLOWED_ORIGIN || '*',
           },
           {
             key: 'Access-Control-Allow-Methods',
             value: 'GET, POST, PUT, PATCH, DELETE, OPTIONS',
           },
+          {},
         ],
       },
     ]
