@@ -7,7 +7,7 @@ module.exports = {
   },
   plugins: ['@typescript-eslint/eslint-plugin', 'prettier', '@tanstack/eslint-plugin-query'],
   extends: ['next/core-web-vitals', 'plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
-  ignorePatterns: ['.eslintrc.cjs', 'next.config.js'],
+  ignorePatterns: ['.eslintrc.cjs', 'next.config.js', 'postcss.config.js', 'tailwind.config.js'],
   rules: {
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
