@@ -4,7 +4,7 @@ import { Select, Spinner } from 'flowbite-react'
 import { Category } from '@prisma/client'
 import { useQuery } from '@tanstack/react-query'
 import { ENV } from '@/utils/constant'
-import useProductStore from '../../hooks/useProductStore'
+import useProductStore from '../../stores/useProductStore'
 
 const CategoryFilter = () => {
   const [productCategorySearch, setProductCategorySearch] = useProductStore((state) => [

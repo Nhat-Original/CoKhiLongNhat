@@ -15,7 +15,7 @@ import { useQuery } from '@tanstack/react-query'
 import { ENV } from '@/utils/constant'
 import { Category } from '@prisma/client'
 import { MdModeEditOutline } from 'react-icons/md'
-import useAdminCategoryStore from '../../hooks/useAdminCategoryStore'
+import useAdminCategoryStore from '../../stores/useAdminCategoryStore'
 
 const CategoryTable = () => {
   const categoryIdList = useAdminCategoryStore((state) => state.categoryIdList)

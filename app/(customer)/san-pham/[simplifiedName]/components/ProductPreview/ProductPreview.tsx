@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import { Button, Modal } from 'flowbite-react'
-import useProductDetailStore from '../../hooks/useProductDetailStore'
+import useProductDetailStore from '../../stores/useProductDetailStore'
 import { MdArrowLeft, MdArrowRight } from 'react-icons/md'
 
 const ProductPreview = () => {

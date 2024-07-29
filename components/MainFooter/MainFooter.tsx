@@ -10,7 +10,7 @@ const MainFooter = () => {
       <div className="w-full">
         <div className="grid w-full grid-cols-2 gap-8 px-6 py-8 md:grid-cols-4">
           <div>
-            <FooterBrand src="/images/favicon.ico" alt="logo" name="COKHICHITIET" className="scale-150" />
+            <FooterBrand src="/images/favicon.ico" alt="logo" className="scale-150" />
           </div>
           <div>
             <FooterTitle title="Thông tin" className="font-bold underline" />

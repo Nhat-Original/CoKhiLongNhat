@@ -1,27 +1,30 @@
 'use client'
 import React from 'react'
 import { Avatar, Dropdown, DropdownHeader, DropdownItem, Button, Spinner } from 'flowbite-react'
-import { signIn, signOut, useSession } from 'next-auth/react'
+import { signOut } from 'next-auth/react'
+import avatarPlaceholder from '../../public/images/avatarPlaceholder.png'
+import Link from 'next/link'
+import useAuth from '@/hooks/useAuth'
 
 const SigninButton = () => {
-  const { data: session, status } = useSession()
+  const { isAuth, user, sessionStatus } = useAuth()
 
-  if (status === 'authenticated') {
+  if (isAuth) {
     return (
       <Dropdown
-        label={<Avatar alt="user avatar" img={session?.user.image || '/images/avatarPlaceholder.png'} rounded />}
+        label={<Avatar alt="user avatar" img={user?.image || avatarPlaceholder.src} rounded />}
         arrowIcon={false}
         inline
       >
         <DropdownHeader>
-          <span className="block text-sm">{session.user.name}</span>
-          <span className="block truncate text-sm font-medium">{session.user.email}</span>
+          <span className="block text-sm">{user?.name || ''}</span>
+          <span className="block truncate text-sm font-medium">{user?.email}</span>
         </DropdownHeader>
         <DropdownItem onClick={() => signOut()}>Đăng xuất</DropdownItem>
       </Dropdown>
     )
   }
-  if (status === 'loading') {
+  if (sessionStatus === 'loading') {
     return (
       <Button color="gray">
         <Spinner aria-label="Alternate spinner button example" size="sm" />
@@ -29,9 +32,9 @@ const SigninButton = () => {
     )
   }
   return (
-    <Button color="gray" onClick={() => signIn()}>
-      Đăng nhập
-    </Button>
+    <Link href="/dang-nhap">
+      <Button color="gray">Đăng nhập</Button>
+    </Link>
   )
 }
 

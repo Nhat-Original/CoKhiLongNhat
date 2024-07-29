@@ -2,7 +2,7 @@
 import React from 'react'
 import { Button } from 'flowbite-react'
 import { MdFavoriteBorder, MdFavorite } from 'react-icons/md'
-import useProductDetailStore from '../../hooks/useProductDetailStore'
+import useProductDetailStore from '../../stores/useProductDetailStore'
 import { useShallow } from 'zustand/react/shallow'
 
 const FavoriteButton = () => {

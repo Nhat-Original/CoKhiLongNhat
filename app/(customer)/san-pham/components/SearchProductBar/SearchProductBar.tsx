@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import useProductStore from '../../hooks/useProductStore'
+import useProductStore from '../../stores/useProductStore'
 import { TextInput } from 'flowbite-react'
 import { useShallow } from 'zustand/react/shallow'
 

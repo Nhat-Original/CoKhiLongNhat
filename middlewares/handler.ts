@@ -23,5 +23,5 @@ export const handler =
 
     if (result) return result
 
-    throw new Error('Your handler or middleware must return a NextResponse!')
+    throw new Error('handler or middleware must return a NextResponse')
   }

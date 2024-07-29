@@ -2,7 +2,7 @@
 import React from 'react'
 import { Button, Label, Modal, ModalBody, ModalHeader, TextInput, Textarea, ToggleSwitch } from 'flowbite-react'
 import { useState } from 'react'
-import useAdminCategoryStore from '../../hooks/useAdminCategoryStore'
+import useAdminCategoryStore from '../../stores/useAdminCategoryStore'
 import { useMutation } from '@tanstack/react-query'
 import { ENV } from '@/utils/constant'
 import { toast } from 'react-toastify'

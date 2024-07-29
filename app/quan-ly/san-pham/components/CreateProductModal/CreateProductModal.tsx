@@ -8,7 +8,7 @@ import { toast } from 'react-toastify'
 import { queryClient } from '@/components/Providers/QueryProvider'
 import { Category } from '@prisma/client'
 import { CreateProductSchema } from '@/app/api/product/schemas/createProductSchema'
-import useAdminProductStore from '../../hooks/useAdminProductStore'
+import useAdminProductStore from '../../stores/useAdminProductStore'
 
 const CreateProductModal = () => {
   const [openModal, setOpenModal] = useState(false)

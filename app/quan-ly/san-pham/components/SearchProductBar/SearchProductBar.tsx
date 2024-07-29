@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import useAdminProductStore from '../../hooks/useAdminProductStore'
+import useAdminProductStore from '../../stores/useAdminProductStore'
 import { TextInput } from 'flowbite-react'
 
 const SearchProductBar = () => {
