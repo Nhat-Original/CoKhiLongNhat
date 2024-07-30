@@ -6,8 +6,6 @@ const nextConfig = {
     remotePatterns: [{ hostname: 'lh3.googleusercontent.com' }],
   },
   async headers() {
-    console.log(process.env.ALLOWED_ORIGIN)
-
     return [
       {
         source: '/api/:path*',
