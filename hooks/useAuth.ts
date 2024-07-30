@@ -1,5 +1,6 @@
 import { useSession } from 'next-auth/react'
 import { useQuery } from '@tanstack/react-query'
+import { ENV } from '@/utils/constant'
 
 type Payload = {
   id: number
@@ -15,11 +16,11 @@ const useAuth = () => {
   const query = useQuery({
     queryKey: ['me'],
     queryFn: async () => {
-      const response = await fetch('/api/me')
+      const response = await fetch(`${ENV.API_URL}/auth/me`)
       return (await response.json()).data
     },
   })
-  const payload = (query.data as Payload) || {}
+  const payload = (query.data as Payload) || null
 
   return {
     isAuth: payload || session?.user,

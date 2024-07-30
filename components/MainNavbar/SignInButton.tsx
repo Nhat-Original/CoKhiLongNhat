@@ -5,8 +5,11 @@ import { signOut } from 'next-auth/react'
 import avatarPlaceholder from '../../public/images/avatarPlaceholder.png'
 import Link from 'next/link'
 import useAuth from '@/hooks/useAuth'
+import { queryClient } from '../Providers/QueryProvider'
+import Cookies from 'universal-cookie'
 
 const SigninButton = () => {
+  const cookies = new Cookies()
   const { isAuth, user, sessionStatus } = useAuth()
 
   if (isAuth) {
@@ -20,14 +23,24 @@ const SigninButton = () => {
           <span className="block text-sm">{user?.name || ''}</span>
           <span className="block truncate text-sm font-medium">{user?.email}</span>
         </DropdownHeader>
-        <DropdownItem onClick={() => signOut()}>Đăng xuất</DropdownItem>
+        <DropdownItem
+          onClick={() => {
+            signOut()
+            cookies.remove('token')
+            queryClient.invalidateQueries({
+              queryKey: ['me'],
+            })
+          }}
+        >
+          Đăng xuất
+        </DropdownItem>
       </Dropdown>
     )
   }
   if (sessionStatus === 'loading') {
     return (
       <Button color="gray">
-        <Spinner aria-label="Alternate spinner button example" size="sm" />
+        <Spinner size="sm" />
       </Button>
     )
   }
