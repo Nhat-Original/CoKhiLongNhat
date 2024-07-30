@@ -2,8 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
+@layer base {
   body {
     @apply w-full px-4 md:px-8 lg:px-24 xl:px-32;
+  }
+}
+
+@layer components {
+  .page {
+    @apply my-12 min-h-[calc(100vh-70px-96px-304px)];
   }
 }

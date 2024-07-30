@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import useProductStore from '../../hooks/useProductStore'
+import useProductStore from '../../stores/useProductStore'
 
 const ProductCounter = () => {
   const productCount = useProductStore((state) => state.productCount)

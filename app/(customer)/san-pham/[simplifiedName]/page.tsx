@@ -5,7 +5,7 @@ import ProductDescription from './components/ProductDescription'
 
 const ProductDetailPage = () => {
   return (
-    <div className="my-12 flex flex-col">
+    <div className="page flex flex-col">
       <div className="flex flex-col gap-8 lg:flex-row">
         <ProductShowcase />
         <ProductDescription />

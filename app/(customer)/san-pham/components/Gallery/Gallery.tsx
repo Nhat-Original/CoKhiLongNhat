@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Card, Spinner } from 'flowbite-react'
 import Link from 'next/link'
 import productPlaceholder from '@/public/images/productPlaceholder.png'
-import useProductStore from '../../hooks/useProductStore'
+import useProductStore from '../../stores/useProductStore'
 import { useShallow } from 'zustand/react/shallow'
 
 const Gallery = () => {

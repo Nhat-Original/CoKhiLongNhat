@@ -1,13 +1,13 @@
 'use client'
-import { useSession } from 'next-auth/react'
 import AdminTabBar from './components/AdminTabBar'
 import { ROLE } from '@prisma/client'
 import NotFound from '../not-found'
+import useAuth from '@/hooks/useAuth'
 
 const AdminLayout = ({ children }: { children: React.ReactNode }) => {
-  const { data: session } = useSession()
+  const { isAuth, user } = useAuth()
 
-  if (session?.user.role !== ROLE.ADMIN) {
+  if (!isAuth || user?.role !== ROLE.ADMIN) {
     return <NotFound />
   }
 

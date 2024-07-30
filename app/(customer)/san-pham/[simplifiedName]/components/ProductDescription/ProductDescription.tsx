@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import useProductDetailStore from '../../hooks/useProductDetailStore'
+import useProductDetailStore from '../../stores/useProductDetailStore'
 import { useShallow } from 'zustand/react/shallow'
 import { Badge, Button } from 'flowbite-react'
 import Link from 'next/link'

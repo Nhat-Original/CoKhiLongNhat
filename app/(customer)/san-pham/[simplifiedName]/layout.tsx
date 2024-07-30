@@ -1,10 +1,11 @@
 'use client'
 import { useQuery } from '@tanstack/react-query'
-import useProductDetailStore from './hooks/useProductDetailStore'
+import useProductDetailStore from './stores/useProductDetailStore'
 import { ENV } from '@/utils/constant'
 import { useEffect } from 'react'
 import { useShallow } from 'zustand/react/shallow'
-import { Spinner } from 'flowbite-react'
+import { Button, Spinner } from 'flowbite-react'
+import Link from 'next/link'
 
 const ProductDetailLayout = ({
   children,
@@ -37,13 +38,20 @@ const ProductDetailLayout = ({
 
   if (query.isLoading)
     return (
-      <div className="w-full flex justify-center my-12">
-        <Spinner />
+      <div className="w-full flex items-center justify-center page">
+        <Spinner size="lg" />
       </div>
     )
 
   if (query.isError) {
-    return <div className="w-full flex justify-center my-12">Không tìm thấy sản phẩm</div>
+    return (
+      <div className="w-full flex flex-col gap-4 items-center justify-center page">
+        <p>Không tìm thấy sản phẩm</p>
+        <Link href="/san-pham">
+          <Button color="gray">Trở về trang sản phẩm</Button>
+        </Link>
+      </div>
+    )
   }
 
   return <>{children}</>

@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import productPlaceholder from '@/public/images/productPlaceholder.png'
-import useProductDetailStore from '../../hooks/useProductDetailStore'
+import useProductDetailStore from '../../stores/useProductDetailStore'
 import { useShallow } from 'zustand/react/shallow'
 
 const ProductShowcase = () => {

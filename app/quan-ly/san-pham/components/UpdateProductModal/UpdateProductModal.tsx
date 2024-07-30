@@ -17,7 +17,7 @@ import { ENV } from '@/utils/constant'
 import { toast } from 'react-toastify'
 import { queryClient } from '@/components/Providers/QueryProvider'
 import { Category, Product } from '@prisma/client'
-import useAdminProductStore from '../../hooks/useAdminProductStore'
+import useAdminProductStore from '../../stores/useAdminProductStore'
 import { useShallow } from 'zustand/react/shallow'
 import { CreateProductSchema } from '@/app/api/product/schemas/createProductSchema'
 

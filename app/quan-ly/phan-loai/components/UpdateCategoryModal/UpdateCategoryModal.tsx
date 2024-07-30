@@ -11,7 +11,7 @@ import {
   Textarea,
   ToggleSwitch,
 } from 'flowbite-react'
-import useAdminCategoryStore from '../../hooks/useAdminCategoryStore'
+import useAdminCategoryStore from '../../stores/useAdminCategoryStore'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { ENV } from '@/utils/constant'
 import { toast } from 'react-toastify'

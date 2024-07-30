@@ -15,7 +15,7 @@ import { useQuery } from '@tanstack/react-query'
 import { ENV } from '@/utils/constant'
 import { Product } from '@prisma/client'
 import { MdModeEditOutline, MdImage, MdVisibility } from 'react-icons/md'
-import useAdminProductStore from '../../hooks/useAdminProductStore'
+import useAdminProductStore from '../../stores/useAdminProductStore'
 import { useShallow } from 'zustand/react/shallow'
 import Link from 'next/link'
 

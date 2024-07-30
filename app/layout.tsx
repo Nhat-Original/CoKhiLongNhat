@@ -6,7 +6,7 @@ import Providers from '@/components/Providers'
 import MainNavbar from '@/components/MainNavbar'
 
 const metadata: Metadata = {
-  title: 'CoKhiChiTiet',
+  title: 'CoKhiLongNhat',
 }
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
