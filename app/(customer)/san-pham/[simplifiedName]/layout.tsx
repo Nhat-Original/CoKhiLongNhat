@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 import { useShallow } from 'zustand/react/shallow'
 import { Button, Spinner } from 'flowbite-react'
 import Link from 'next/link'
+import Head from 'next/head'
 
 const ProductDetailLayout = ({
   children,
@@ -14,8 +15,14 @@ const ProductDetailLayout = ({
   children: React.ReactNode
   params: { simplifiedName: string }
 }) => {
-  const [setProduct, setProductImages, setIsPreviewing, setIsFavorite] = useProductDetailStore(
-    useShallow((state) => [state.setProduct, state.setProductImages, state.setIsPreviewing, state.setIsFavorite]),
+  const [setProduct, setProductImages, setIsPreviewing, setIsFavorite, product] = useProductDetailStore(
+    useShallow((state) => [
+      state.setProduct,
+      state.setProductImages,
+      state.setIsPreviewing,
+      state.setIsFavorite,
+      state.product,
+    ]),
   )
 
   const query = useQuery({
@@ -45,16 +52,32 @@ const ProductDetailLayout = ({
 
   if (query.isError) {
     return (
-      <div className="w-full flex flex-col gap-4 items-center justify-center page">
-        <p>Không tìm thấy sản phẩm</p>
-        <Link href="/san-pham">
-          <Button color="gray">Trở về trang sản phẩm</Button>
-        </Link>
-      </div>
+      <>
+        <Head>
+          <title>Không tìm thấy sản phẩm | Cơ Khí Long Nhật</title>
+          <meta name="description" content="Không tìm thấy sản phẩm" />
+        </Head>
+
+        <div className="w-full flex flex-col gap-4 items-center justify-center page">
+          <p>Không tìm thấy sản phẩm</p>
+          <Link href="/san-pham">
+            <Button color="gray">Trở về trang sản phẩm</Button>
+          </Link>
+        </div>
+      </>
     )
   }
 
-  return <>{children}</>
+  return (
+    <>
+      <Head>
+        <title>{product?.name || 'Sản phẩm'} | Cơ Khí Long Nhật</title>
+        <meta name="description" content={product?.description || 'Chưa có mô tả sản phẩm'} />
+      </Head>
+
+      {children}
+    </>
+  )
 }
 
 export default ProductDetailLayout

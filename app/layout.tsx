@@ -1,19 +1,16 @@
 import './globals.css'
 import 'react-toastify/dist/ReactToastify.css'
-import type { Metadata } from 'next'
 import { ToastContainer, Bounce } from 'react-toastify'
 import Providers from '@/components/Providers'
 import MainNavbar from '@/components/MainNavbar'
 
-const metadata: Metadata = {
-  title: 'CoKhiLongNhat',
-}
-
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <html lang="en" data-theme="light">
+    <html lang="vn" data-theme="light">
       <head>
         <link rel="icon" href="/images/favicon.ico" />
+        <title>Thiết kế và gia công chi tiết cơ khí chính xác | Cơ Khí Long Nhật</title>
+        <meta name="description" content="" />
       </head>
       <body>
         <Providers>
@@ -42,4 +39,3 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 }
 
 export default RootLayout
-export { metadata }
