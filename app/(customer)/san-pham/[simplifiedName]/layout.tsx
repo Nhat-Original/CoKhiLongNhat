@@ -72,7 +72,7 @@ const ProductDetailLayout = ({
     <>
       <Head>
         <title>{product?.name || 'Sản phẩm'} | Cơ Khí Long Nhật</title>
-        <meta name="description" content={product?.description || 'Chưa có mô tả sản phẩm'} />
+        <meta name="description" content={`${product?.name} - ${product?.description || 'Chưa có mô tả sản phẩm'}`} />
       </Head>
 
       {children}

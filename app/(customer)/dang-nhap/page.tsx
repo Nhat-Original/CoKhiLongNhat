@@ -19,7 +19,7 @@ const LoginPage = () => {
     <>
       <Head>
         <title>Đăng nhập | Cơ Khí Long Nhật</title>
-        <meta name="description" content="" />
+        <meta name="robots" content="noindex,nofollow" />
       </Head>
 
       <div className="flex flex-col justify-center items-center page">

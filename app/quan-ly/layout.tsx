@@ -16,7 +16,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
     <>
       <Head>
         <title>Quản lý | Cơ Khí Long Nhật</title>
-        <meta name="description" content="" />
+        <meta name="robots" content="noindex,nofollow" />
       </Head>
 
       <AdminTabBar />
