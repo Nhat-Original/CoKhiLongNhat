@@ -1,17 +1,14 @@
 const CONTENT = {
   INFORMATION: {
-    PRESIDENT: '',
-    ADDRESS: '',
+    TAX_CODE: '3701546681',
+    PRESIDENT: 'Hoàng Minh Long',
+    ADDRESS: 'Đường 72, Tân Uyên, Bình Dương',
   },
   CONTACT: {
-    PHONE: '',
-    FACEBOOK: '',
-    ZALO: '',
-    EMAIL: '',
-  },
-  SUPPORT: {
-    GUIDE: 'Hướng dẫn mua hàng',
-    DELIVERY: 'Chính sách giao hàng',
+    PHONE: '0918-222-334',
+    EMAIL: 'long.longnhat@gmail.com',
+    ZALO: 'zalo.me/0918222334',
+    FACEBOOK: 'www.facebook.com/long.hoangminh.7',
   },
 }
 
