@@ -46,7 +46,9 @@ const SigninButton = () => {
   }
   return (
     <Link href="/dang-nhap">
-      <Button color="gray">Đăng nhập</Button>
+      <Button color="gray">
+        <p className="font-bold">Đăng nhập</p>
+      </Button>
     </Link>
   )
 }

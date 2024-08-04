@@ -128,7 +128,7 @@ const CreateProductModal = () => {
                 id="product-price"
                 type="number"
                 pattern="[0-9]*"
-                value={Number(createProductSchema.price)}
+                value={Number(createProductSchema.price).toLocaleString()}
                 onChange={(e) => {
                   setCreateProductSchema({ ...createProductSchema, price: Number(e.target.value) || null })
                 }}

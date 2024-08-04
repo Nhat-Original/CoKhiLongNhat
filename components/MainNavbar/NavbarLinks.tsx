@@ -21,12 +21,12 @@ const NavbarLinks = () => {
       {/* <NavbarLink as={Link} prefetch={false} active={path.startsWith('/yeu-thich')} href="/yeu-thich">
         Yêu thích
       </NavbarLink> */}
-      <NavbarLink as={Link} prefetch={false} active={path.startsWith('/lien-he')} href="/lien-he">
+      {/* <NavbarLink as={Link} prefetch={false} active={path.startsWith('/lien-he')} href="/lien-he">
         Liên hệ
-      </NavbarLink>
-      <NavbarLink as={Link} prefetch={false} active={path.startsWith('/ho-tro')} href="/ho-tro">
+      </NavbarLink> */}
+      {/* <NavbarLink as={Link} prefetch={false} active={path.startsWith('/ho-tro')} href="/ho-tro">
         Hỗ trợ
-      </NavbarLink>
+      </NavbarLink> */}
       {isAuth && user?.role === ROLE.ADMIN && (
         <NavbarLink as={Link} prefetch={false} active={path.startsWith('/quan-ly')} href="/quan-ly">
           Quản lý

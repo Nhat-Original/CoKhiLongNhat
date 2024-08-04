@@ -1,6 +1,8 @@
-import { Footer, FooterBrand, FooterLink, FooterLinkGroup, FooterTitle } from 'flowbite-react'
+import { Footer, FooterBrand, FooterLinkGroup, FooterTitle } from 'flowbite-react'
 import FOOTER from './footerConstant'
 import logo from '@/public/images/favicon.ico'
+import { MdPhone, MdEmail } from 'react-icons/md'
+import { SiZalo } from 'react-icons/si'
 
 const { INFORMATION, CONTACT } = FOOTER
 
@@ -10,16 +12,13 @@ const MainFooter = () => {
       <div className="w-full">
         <div className="grid w-full grid-cols-2 gap-8 px-6 py-8 md:grid-cols-4">
           <div>
-            <FooterBrand src={logo.src} alt="logo" className="aspect-square w-1/4 h-auto" />
+            <FooterBrand src={logo.src} alt="logo" className="aspect-square w-1/2 sm:w-1/4 h-auto" />
           </div>
           <div>
             <FooterTitle title="Thông tin" className="font-bold underline" />
             <FooterLinkGroup col>
               <div>
-                <b>Mã số thuế (MST):</b> {INFORMATION.TAX_CODE}
-              </div>
-              <div>
-                <b>Giám đốc:</b> {INFORMATION.PRESIDENT}
+                <b>Mã số thuế:</b> {INFORMATION.TAX_CODE}
               </div>
               <div>
                 <b>Địa chỉ:</b> {INFORMATION.ADDRESS}
@@ -28,43 +27,46 @@ const MainFooter = () => {
           </div>
           <div>
             <FooterTitle title="Liên hệ" className="font-bold underline" />
-            <FooterLinkGroup col>
-              <FooterLink href={`tel:${CONTACT.PHONE}`} target="_blank" className="flex">
-                <b>Số điện thoại:</b> {CONTACT.PHONE}
-              </FooterLink>
-              <FooterLink
-                href={`
-                  mailto:${CONTACT.EMAIL}?subject=Liên hệ từ website&body=Chào bạn,
-                `}
-                target="_blank"
-                className="flex"
-              >
-                <b>Email:</b> {CONTACT.EMAIL}
-              </FooterLink>
-              <FooterLink href={`https://${CONTACT.ZALO}`} target="_blank" className="flex">
-                <b>Zalo:</b> {CONTACT.ZALO}
-              </FooterLink>
-              <FooterLink href={`https://${CONTACT.FACEBOOK}`} target="_blank" className="flex">
-                <b>Facebook:</b> {CONTACT.FACEBOOK}
-              </FooterLink>
+            <FooterLinkGroup col className="truncate">
+              <a href={`tel:${CONTACT.PHONE}`} target="_blank">
+                <div className="flex items-center gap-1">
+                  <MdPhone />
+                  {CONTACT.PHONE}
+                </div>
+              </a>
+              <a href={`mailto:${CONTACT.EMAIL}?subject=Liên hệ từ website Cơ Khí Long Nhật`} target="_blank">
+                <div className="flex items-center gap-1">
+                  <MdEmail />
+                  {CONTACT.EMAIL}
+                </div>
+              </a>
+              <a href={`https://${CONTACT.ZALO}`} target="_blank">
+                <div className="flex items-center gap-1">
+                  <SiZalo />
+                  {CONTACT.ZALO}
+                </div>
+              </a>
+              {/* <a href={`https://${CONTACT.FACEBOOK}`} target="_blank">
+                <div className="flex items-center gap-1">
+                  <MdFacebook />
+                  {CONTACT.FACEBOOK}
+                </div>
+              </a> */}
             </FooterLinkGroup>
           </div>
           <div>
             <FooterTitle title="Hỗ trợ" className="font-bold underline" />
             <FooterLinkGroup col>
-              <FooterLink href="">
+              <a href="">
                 <b>Hướng dẫn mua hàng</b>
-              </FooterLink>
-              <FooterLink href="">
+              </a>
+              <a href="">
                 <b>Chính sách giao hàng</b>
-              </FooterLink>
+              </a>
             </FooterLinkGroup>
           </div>
         </div>
-        <div className="w-full text-white bg-gray-800 px-4 py-6 sm:flex sm:items-center sm:justify-between">
-          cokhilongnhat.vercel.app
-        </div>
-        <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center"></div>
+        <div className="w-full text-white bg-gray-800 px-4 py-6">cokhilongnhat.vercel.app</div>
       </div>
     </Footer>
   )
