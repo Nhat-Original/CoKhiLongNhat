@@ -10,7 +10,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
     <html lang="vn" data-theme="light">
       <head>
         <link rel="icon" href="/images/favicon.ico" />
-        <title>Thiết kế và gia công chi tiết cơ khí chính xác | Cơ Khí Long Nhật</title>
+        <title>Cơ Khí Long Nhật - Thiết kế và gia công chi tiết cơ khí | Cơ Khí Long Nhật</title>
         <meta
           name="description"
           content="Chuyên thiết kế và gia công chi tiết cơ khí với độ chính xác cao. Cam kết đáp ứng các yêu cầu kỹ thuật. Liên hệ ngay để nhận tư vấn miễn phí."

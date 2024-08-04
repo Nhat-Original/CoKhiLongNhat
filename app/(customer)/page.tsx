@@ -4,7 +4,7 @@ import ProductShowcase from './components/ProductShowcase'
 
 const ProductPage = () => {
   return (
-    <div className="page flex flex-col gap-24">
+    <div className="page flex flex-col gap-16">
       <IntroductionCarousel />
       <ProductShowcase />
     </div>

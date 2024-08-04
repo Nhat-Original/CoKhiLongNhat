@@ -11,19 +11,21 @@ const IntroductionCarousel = () => {
         <div className="w-full h-full">
           <img className=" w-full h-full object-cover opacity-90" alt="introduction" src={showcaseImage1.src} />
           <div className="text-white text-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-4">
-            <h1 className="text-4xl font-extrabold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">COKHILONGNHAT</h1>
+            <h1 className="text-2xl sm:text-4xl font-extrabold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+              COKHILONGNHAT
+            </h1>
             <p className="text-lg font-bold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
-              Chuyên bán các loại chi tiết cơ khí nhỏ với độ chính xác cao
+              Chuyên bán các loại chi tiết cơ khí với độ chính xác cao
             </p>
           </div>
         </div>
         <div className=" w-full h-full opacity-90">
           <img className=" w-full h-full object-cover" alt="introduction" src={showcaseImage2.src} />
           <div className="text-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-4">
-            <h1 className="text-4xl font-extrabold">COKHILONGNHAT</h1>
+            <h1 className="text-2xl sm:text-4xl font-extrabold">COKHILONGNHAT</h1>
             <Link href="/san-pham">
               <Button pill gradientDuoTone="purpleToBlue" size="lg" className="font-extrabold">
-                XEM SẢN PHẨM
+                Xem sản phẩm
               </Button>
             </Link>
           </div>

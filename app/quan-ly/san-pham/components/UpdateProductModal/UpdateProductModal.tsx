@@ -180,7 +180,7 @@ const UpdateProductModal = () => {
               <TextInput
                 id="product-price"
                 type="number"
-                value={Number(updateProductSchema.price)}
+                value={Number(updateProductSchema.price).toLocaleString()}
                 onChange={(e) => {
                   setUpdateProductSchema({ ...updateProductSchema, price: Number(e.target.value) || null })
                 }}

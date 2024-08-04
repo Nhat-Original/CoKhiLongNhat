@@ -40,7 +40,7 @@ const Gallery = () => {
       ) : productList.length === 0 ? (
         <div className="w-full text-center">Không tìm thấy sản phẩm </div>
       ) : (
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {productList.map((product) => (
             <div key={product.id}>
               <div className="max-w-[24rem] mx-auto">
@@ -55,7 +55,18 @@ const Gallery = () => {
                       />
                     )}
                   >
-                    <div className="text-sm text-gray-500">{product.name}</div>
+                    <div className="flex flex-col gap-1">
+                      <div className="text-md uppercase font-bold">{product.name}</div>
+                      <div className="text-md font-bold text-cyan-700">
+                        {(() => {
+                          if (!product.price) return 'Liên hệ'
+                          else if (product.price && product.quantity && product.unit)
+                            return `${product.price.toLocaleString()}đ / ${product.quantity} ${product.unit}`
+                          else return `${product.price.toLocaleString()}đ`
+                        })()}
+                      </div>
+                      <div>{product.description || <span className="italic">Chưa có mô tả</span>}</div>
+                    </div>
                   </Card>
                 </Link>
               </div>
