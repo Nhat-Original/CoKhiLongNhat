@@ -4,6 +4,7 @@ import { ToastContainer, Bounce } from 'react-toastify'
 import Providers from '@/components/Providers'
 import MainNavbar from '@/components/MainNavbar'
 import logo from '@/public/images/favicon.ico'
+import ContactButton from '@/components/ContactButton'
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -15,7 +16,6 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
           name="description"
           content="Chuyên thiết kế và gia công chi tiết cơ khí với độ chính xác cao. Cam kết đáp ứng các yêu cầu kỹ thuật. Liên hệ ngay để nhận tư vấn miễn phí."
         />
-
         <meta name="og:locale" content="vi" />
         <meta name="og:type" content="website" />
         <meta name="og:url" content="https://cokhilongnhat.vercel.app" />
@@ -27,11 +27,13 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         <meta name="og:site_name" content="Cơ Khí Long Nhật" />
         <meta name="og:image" content={logo.src} />
       </head>
-      <body>
+      <body className="relative">
         <Providers>
           <MainNavbar />
 
           {children}
+
+          <ContactButton />
 
           <ToastContainer
             position="bottom-right"

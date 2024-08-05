@@ -12,7 +12,11 @@ const MainFooter = () => {
       <div className="w-full">
         <div className="grid w-full grid-cols-2 gap-8 px-6 py-8 md:grid-cols-4">
           <div>
-            <FooterBrand src={logo.src} alt="logo" className="aspect-square w-1/2 sm:w-1/4 h-auto" />
+            <FooterBrand
+              src={logo.src}
+              alt="logo"
+              className="bg-white rounded-full aspect-square w-1/2 sm:w-1/4 h-auto"
+            />
           </div>
           <div>
             <FooterTitle title="Thông tin" className="font-bold underline" />

@@ -57,7 +57,7 @@ const ProductShowcase = () => {
                       <div className="text-md uppercase font-bold">{product.name}</div>
                       <div className="text-md font-bold text-cyan-700">
                         {(() => {
-                          if (!product.price) return 'Liên hệ'
+                          if (!product.price) return 'Giá: Liên hệ'
                           else if (product.price && product.quantity && product.unit)
                             return `${product.price.toLocaleString()}đ / ${product.quantity} ${product.unit}`
                           else return `${product.price.toLocaleString()}đ`
