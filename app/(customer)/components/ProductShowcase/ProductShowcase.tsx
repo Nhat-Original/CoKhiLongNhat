@@ -12,7 +12,7 @@ const ProductShowcase = () => {
   const query = useQuery({
     queryKey: ['product'],
     queryFn: async (): Promise<(Product & { productImages: ProductImage[] })[]> => {
-      const response = await fetch(`${ENV.API_URL}/product?limit=6&published=true`)
+      const response = await fetch(`${ENV.NEXT_PUBLIC_API_URL}/product?limit=6&published=true`)
       return (await response.json()).data
     },
   })

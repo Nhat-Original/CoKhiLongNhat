@@ -32,7 +32,7 @@ const UpdateProductImageModal = () => {
     queryKey: ['product', updatingProductId],
     queryFn: async (): Promise<Product & { productImages: ProductImage[] }> => {
       let response
-      if (updatingProductId) response = await fetch(`${ENV.API_URL}/product/${updatingProductId}`)
+      if (updatingProductId) response = await fetch(`${ENV.NEXT_PUBLIC_API_URL}/product/${updatingProductId}`)
       return (await response?.json()).data
     },
   })
@@ -40,7 +40,7 @@ const UpdateProductImageModal = () => {
 
   const createProductImage = useMutation({
     mutationFn: async (url: string) => {
-      const response = await fetch(`${ENV.API_URL}/product/${updatingProductId}/product-image`, {
+      const response = await fetch(`${ENV.NEXT_PUBLIC_API_URL}/product/${updatingProductId}/product-image`, {
         method: 'POST',
         body: JSON.stringify({ url }),
       })
@@ -61,9 +61,12 @@ const UpdateProductImageModal = () => {
 
   const removeProductImage = useMutation({
     mutationFn: async (productImageId: string) => {
-      const response = await fetch(`${ENV.API_URL}/product/${updatingProductId}/product-image/${productImageId}`, {
-        method: 'DELETE',
-      })
+      const response = await fetch(
+        `${ENV.NEXT_PUBLIC_API_URL}/product/${updatingProductId}/product-image/${productImageId}`,
+        {
+          method: 'DELETE',
+        },
+      )
       return await response.json()
     },
     onSuccess: (res) => {
@@ -95,7 +98,7 @@ const UpdateProductImageModal = () => {
         ) : (
           <div className="flex max-w-md flex-col gap-4">
             <CldUploadButton
-              uploadPreset={ENV.CLOUDINARY_UPLOAD_PRESET}
+              uploadPreset={ENV.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
               className="w-fit font-semibold text-white bg-cyan-600 rounded-md py-2 px-5  mx-auto"
               onSuccess={({ info }) => {
                 if (typeof info === 'string') return

@@ -3,14 +3,16 @@ import Gallery from './components/Gallery'
 import SearchProductBar from './components/SearchProductBar'
 import CategoryFilter from './components/CategoryFilter'
 import ProductCounter from './components/ProductCounter'
-import Head from 'next/head'
+import { Metadata } from 'next'
+
+const metadata: Metadata = {
+  title: 'Sản phẩm | Cơ Khí Long Nhật',
+  description: 'Các sản phẩm, dịch vụ Cơ Khí Long Nhật cung cấp',
+}
 
 const ProductPage = () => {
   return (
     <>
-      <Head>
-        <title>Sản phẩm | Cơ Khí Long Nhật</title>
-      </Head>
       <div className="flex flex-col mb-12 gap-12">
         <div className="sticky top-[70px] flex items-center gap-1 sm:gap-4 py-2 px-1 sm:px-8 bg-gray-800 bg-opacity-80 rounded-md z-[1]">
           <SearchProductBar />
@@ -24,3 +26,4 @@ const ProductPage = () => {
 }
 
 export default ProductPage
+export { metadata }

@@ -17,7 +17,7 @@ const CreateCategoryModal = () => {
 
   const createCategory = useMutation({
     mutationFn: async (category: CreateCategorySchema) => {
-      const response = await fetch(`${ENV.API_URL}/category`, {
+      const response = await fetch(`${ENV.NEXT_PUBLIC_API_URL}/category`, {
         method: 'POST',
         body: JSON.stringify(category),
       })
