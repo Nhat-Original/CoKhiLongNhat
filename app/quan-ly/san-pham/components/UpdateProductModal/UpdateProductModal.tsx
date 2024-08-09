@@ -36,7 +36,7 @@ const UpdateProductModal = () => {
   const query1 = useQuery({
     queryKey: ['category'],
     queryFn: async (): Promise<(Category & { _count: { products: number } })[]> => {
-      const response = await fetch(`${ENV.API_URL}/category`)
+      const response = await fetch(`${ENV.NEXT_PUBLIC_API_URL}/category`)
       return (await response.json()).data
     },
   })
@@ -46,7 +46,7 @@ const UpdateProductModal = () => {
     queryKey: ['product', updatingProductId],
     queryFn: async (): Promise<Product> => {
       let response
-      if (updatingProductId) response = await fetch(`${ENV.API_URL}/product/${updatingProductId}`)
+      if (updatingProductId) response = await fetch(`${ENV.NEXT_PUBLIC_API_URL}/product/${updatingProductId}`)
       return (await response?.json()).data
     },
   })
@@ -69,7 +69,7 @@ const UpdateProductModal = () => {
 
   const updateProduct = useMutation({
     mutationFn: async (product: CreateProductSchema) => {
-      const response = await fetch(`${ENV.API_URL}/product/${updatingProductId}`, {
+      const response = await fetch(`${ENV.NEXT_PUBLIC_API_URL}/product/${updatingProductId}`, {
         method: 'PATCH',
         body: JSON.stringify(product),
       })

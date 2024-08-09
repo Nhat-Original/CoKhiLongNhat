@@ -18,7 +18,7 @@ const Gallery = () => {
     queryKey: ['product', productNameSearch, productCategorySearch],
     queryFn: async (): Promise<(Product & { productImages: ProductImage[] })[]> => {
       const response = await fetch(
-        `${ENV.API_URL}/product?published=true&name=${productNameSearch}&category=${productCategorySearch}`,
+        `${ENV.NEXT_PUBLIC_API_URL}/product?published=true&name=${productNameSearch}&category=${productCategorySearch}`,
       )
       return (await response.json()).data
     },

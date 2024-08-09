@@ -16,7 +16,7 @@ const DeleteCategoryModal = () => {
 
   const deleteCategory = useMutation({
     mutationFn: async (id: string) => {
-      const response = await fetch(`${ENV.API_URL}/category/${id}`, {
+      const response = await fetch(`${ENV.NEXT_PUBLIC_API_URL}/category/${id}`, {
         method: 'DELETE',
       })
       const objectResponse = await response.json()

@@ -51,7 +51,9 @@ const ProductTable = () => {
         }
       })[]
     > => {
-      const response = await fetch(`${ENV.API_URL}/product?name=${productNameSearch}&category=${productCategorySearch}`)
+      const response = await fetch(
+        `${ENV.NEXT_PUBLIC_API_URL}/product?name=${productNameSearch}&category=${productCategorySearch}`,
+      )
       return (await response.json()).data
     },
   })

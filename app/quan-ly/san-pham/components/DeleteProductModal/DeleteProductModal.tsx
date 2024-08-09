@@ -16,7 +16,7 @@ const DeleteProductModal = () => {
 
   const deleteProduct = useMutation({
     mutationFn: async (id: string) => {
-      const response = await fetch(`${ENV.API_URL}/product/${id}`, {
+      const response = await fetch(`${ENV.NEXT_PUBLIC_API_URL}/product/${id}`, {
         method: 'DELETE',
       })
       const objectResponse = await response.json()

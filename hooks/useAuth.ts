@@ -16,7 +16,7 @@ const useAuth = () => {
   const query = useQuery({
     queryKey: ['me'],
     queryFn: async () => {
-      const response = await fetch(`${ENV.API_URL}/auth/me`)
+      const response = await fetch(`${ENV.NEXT_PUBLIC_API_URL}/auth/me`)
       return (await response.json()).data
     },
   })

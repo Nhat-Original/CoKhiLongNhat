@@ -30,7 +30,7 @@ const UpdateCategoryModal = () => {
     queryKey: ['category', updatingCategoryId],
     queryFn: async (): Promise<Category & { _count: { products: number } }> => {
       let response
-      if (updatingCategoryId) response = await fetch(`${ENV.API_URL}/category/${updatingCategoryId}`)
+      if (updatingCategoryId) response = await fetch(`${ENV.NEXT_PUBLIC_API_URL}/category/${updatingCategoryId}`)
       return (await response?.json()).data
     },
   })
@@ -48,7 +48,7 @@ const UpdateCategoryModal = () => {
 
   const updateCategory = useMutation({
     mutationFn: async (category: CreateCategorySchema) => {
-      const response = await fetch(`${ENV.API_URL}/category/${updatingCategoryId}`, {
+      const response = await fetch(`${ENV.NEXT_PUBLIC_API_URL}/category/${updatingCategoryId}`, {
         method: 'PATCH',
         body: JSON.stringify(category),
       })

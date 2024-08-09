@@ -18,7 +18,7 @@ const LoginForm = () => {
 
   const login = useMutation({
     mutationFn: async (formData: FormData) => {
-      const response = await fetch(`${ENV.API_URL}/auth/login`, {
+      const response = await fetch(`${ENV.NEXT_PUBLIC_API_URL}/auth/login`, {
         method: 'POST',
         body: JSON.stringify(formData),
       })

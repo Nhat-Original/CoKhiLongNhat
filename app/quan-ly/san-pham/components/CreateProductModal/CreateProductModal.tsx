@@ -19,7 +19,7 @@ const CreateProductModal = () => {
   const query = useQuery({
     queryKey: ['category'],
     queryFn: async (): Promise<(Category & { _count: { products: number } })[]> => {
-      const response = await fetch(`${ENV.API_URL}/category`)
+      const response = await fetch(`${ENV.NEXT_PUBLIC_API_URL}/category`)
       return (await response.json()).data
     },
   })
@@ -27,7 +27,7 @@ const CreateProductModal = () => {
 
   const createProduct = useMutation({
     mutationFn: async (product: CreateProductSchema) => {
-      const response = await fetch(`${ENV.API_URL}/product`, {
+      const response = await fetch(`${ENV.NEXT_PUBLIC_API_URL}/product`, {
         method: 'POST',
         body: JSON.stringify(product),
       })
