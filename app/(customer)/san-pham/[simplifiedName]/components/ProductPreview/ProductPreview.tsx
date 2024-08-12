@@ -35,7 +35,7 @@ const ProductPreview = () => {
           />
           <Button
             size={'xs'}
-            className="rounded-full aspect-square opacity-50 bg-white absolute -translate-y-1/2 top-1/2 left-1 font-medium text-cyan-600 hover:underline dark:text-cyan-500"
+            className="rounded-full aspect-square opacity-50 bg-white absolute -translate-y-1/2 top-1/2 left-1 font-medium text-cyan-700 hover:underline dark:text-cyan-500"
             onClick={() => {
               setPreviewImageIndex((previewImageIndex - 1 + productImages.length) % productImages.length)
             }}
@@ -44,7 +44,7 @@ const ProductPreview = () => {
           </Button>
           <Button
             size={'xs'}
-            className="rounded-full aspect-square opacity-50 bg-white absolute -translate-y-1/2 top-1/2 right-1 font-medium text-cyan-600 hover:underline dark:text-cyan-500"
+            className="rounded-full aspect-square opacity-50 bg-white absolute -translate-y-1/2 top-1/2 right-1 font-medium text-cyan-700 hover:underline dark:text-cyan-500"
             onClick={() => {
               setPreviewImageIndex((previewImageIndex + 1) % productImages.length)
             }}

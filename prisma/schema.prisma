@@ -85,6 +85,22 @@ model ProductImage {
   product   Product @relation(fields: [productId], references: [id])
 }
 
+model Service {
+  id             String         @id @default(cuid())
+  name           String         @unique @db.VarChar(255)
+  simplifiedName String         @unique @db.VarChar(255)
+  description    String?        @db.Text
+  isPublished    Boolean        @default(false)
+  serviceImages  ServiceImage[]
+}
+
+model ServiceImage {
+  id        String  @id @default(cuid())
+  serviceId String
+  url       String
+  service   Service @relation(fields: [serviceId], references: [id])
+}
+
 enum ROLE {
   STANDARD
   ADMIN
