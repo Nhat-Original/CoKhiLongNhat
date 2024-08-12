@@ -28,11 +28,13 @@ const IntroductionCarousel = () => {
             <h1 className="text-white text-2xl sm:text-4xl font-extrabold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
               COKHILONGNHAT
             </h1>
-            <Link href="/san-pham">
-              <Button pill gradientDuoTone="purpleToBlue" size="lg" className="font-extrabold">
-                Xem sản phẩm
-              </Button>
-            </Link>
+            <div className="flex flex-col items-center gap-2">
+              <Link href="/san-pham">
+                <Button gradientDuoTone="purpleToBlue" size="lg" className="font-extrabold text-xl">
+                  Xem sản phẩm
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </Carousel>

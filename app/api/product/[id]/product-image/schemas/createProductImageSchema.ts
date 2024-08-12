@@ -1,10 +1,10 @@
 import { z } from 'zod'
 
-const createProducImageSchema = z.object({
+const createProductImageSchema = z.object({
   url: z.string().url(),
 })
 
-type CreateProductImageSchema = z.infer<typeof createProducImageSchema>
+type CreateProductImageSchema = z.infer<typeof createProductImageSchema>
 
-export { createProducImageSchema }
+export { createProductImageSchema }
 export type { CreateProductImageSchema }

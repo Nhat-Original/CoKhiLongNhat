@@ -24,7 +24,7 @@ const customTheme: CustomFlowbiteTheme = {
     root: {
       base: 'h-4 w-4 rounded focus:ring-transparent border border-gray-300 dark:border-gray-600 dark:bg-gray-700 bg-gray-100',
       color: {
-        cyan: 'text-cyan-600',
+        cyan: 'text-cyan-700',
       },
     },
   },

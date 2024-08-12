@@ -8,11 +8,13 @@ import Link from 'next/link'
 import productPlaceholder from '@/public/images/productPlaceholder.png'
 import { MdArrowForward } from 'react-icons/md'
 
+const LIMIT = 6
+
 const ProductShowcase = () => {
   const query = useQuery({
     queryKey: ['product'],
     queryFn: async (): Promise<(Product & { productImages: ProductImage[] })[]> => {
-      const response = await fetch(`${ENV.NEXT_PUBLIC_API_URL}/product?limit=6&published=true`)
+      const response = await fetch(`${ENV.NEXT_PUBLIC_API_URL}/product?limit=${LIMIT}&published=true`)
       return (await response.json()).data
     },
   })
@@ -20,8 +22,9 @@ const ProductShowcase = () => {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-between items-center mb-4 gap-4">
         <h1 className="text-3xl font-bold uppercase">sản phẩm</h1>
+        <div className="h-1 bg-black grow rounded-full  hidden sm:block"></div>
         <Link href="/san-pham">
           <Button pill gradientDuoTone="purpleToBlue" size="lg" className="font-extrabold ">
             <div className="mr-2">Xem tất cả</div>
@@ -38,7 +41,7 @@ const ProductShowcase = () => {
       ) : productList.length === 0 ? (
         <div className="w-full text-center">Chưa có sản phẩm nào</div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
           {productList.map((product) => (
             <div key={product.id}>
               <div className="max-w-[24rem] mx-auto">
@@ -73,7 +76,7 @@ const ProductShowcase = () => {
         </div>
       )}
 
-      <Link href="/san-pham">
+      <Link href="/san-pham" className={!productList || productList.length <= LIMIT ? 'hidden' : ''}>
         <div className="w-full mt-8 flex justify-center">
           <Button pill gradientDuoTone="purpleToBlue" size="lg" className="font-extrabold">
             Xem thêm sản phẩm

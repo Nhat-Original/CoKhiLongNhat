@@ -2,13 +2,13 @@ import { STATUS_CODE } from '@/utils/constant'
 import standardResponse from '@/utils/standardResponese'
 import { NextRequest, NextResponse } from 'next/server'
 import prisma from '@/prisma'
-import { CreateProductImageSchema, createProducImageSchema } from '../schemas/createProductImageSchema'
+import { CreateProductImageSchema, createProductImageSchema } from '../schemas/createProductImageSchema'
 
 const createProductImage = async (req: NextRequest) => {
   const productId = req.nextUrl.pathname.split('/')[3]
 
   const body = (await req.json()) as CreateProductImageSchema
-  const validation = createProducImageSchema.safeParse(body)
+  const validation = createProductImageSchema.safeParse(body)
 
   if (!validation.success) {
     return NextResponse.json(standardResponse(STATUS_CODE.BAD_REQUEST, 'Request body is invalid'), {

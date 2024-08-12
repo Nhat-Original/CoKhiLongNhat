@@ -3,6 +3,7 @@ import FOOTER from './footerConstant'
 import logo from '@/public/images/favicon.ico'
 import { MdPhone, MdEmail } from 'react-icons/md'
 import { SiZalo } from 'react-icons/si'
+import Link from 'next/link'
 
 const { INFORMATION, CONTACT } = FOOTER
 
@@ -59,14 +60,14 @@ const MainFooter = () => {
             </FooterLinkGroup>
           </div>
           <div>
-            <FooterTitle title="Hỗ trợ" className="font-bold underline" />
+            <FooterTitle title="Đường dẫn" className="font-bold underline" />
             <FooterLinkGroup col>
-              <a href="">
-                <b>Hướng dẫn mua hàng</b>
-              </a>
-              <a href="">
-                <b>Chính sách giao hàng</b>
-              </a>
+              <Link href="/dich-vu">
+                <b>Dịch vụ</b>
+              </Link>
+              <Link href="/san-pham">
+                <b>Sản phẩm</b>
+              </Link>
             </FooterLinkGroup>
           </div>
         </div>
