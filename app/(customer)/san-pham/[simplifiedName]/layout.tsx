@@ -4,7 +4,7 @@ import { Metadata } from 'next'
 const generateMetadata = async ({ params }: { params: { simplifiedName: string } }): Promise<Metadata> => {
   const response = await fetch(`${ENV.NEXT_PUBLIC_API_URL}/product/simplified-name/${params.simplifiedName}`)
   if (!response.ok) throw new Error()
-  const product = (await response.json()).data.data
+  const product = (await response.json()).data
 
   if (!product) {
     return {
