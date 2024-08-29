@@ -39,16 +39,10 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
       priority: 0.9,
     },
     {
-      url: 'https://cokhilongnhat.vercel.app/lien-he',
+      url: 'https://cokhilongnhat.vercel.app/dich-vu',
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.9,
-    },
-    {
-      url: 'https://cokhilongnhat.vercel.app/ho-tro',
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.7,
     },
     {
       url: 'https://cokhilongnhat.vercel.app/dang-nhap',
@@ -60,6 +54,12 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
       url: 'https://cokhilongnhat.vercel.app/quan-ly',
       lastModified: new Date(),
       changeFrequency: 'weekly',
+      priority: 0.1,
+    },
+    {
+      url: 'https://cokhilongnhat.vercel.app/quan-ly/dich-vu',
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
       priority: 0.1,
     },
     {
