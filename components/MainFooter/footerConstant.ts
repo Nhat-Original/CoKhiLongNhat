@@ -1,7 +1,7 @@
 const CONTENT = {
   INFORMATION: {
     TAX_CODE: '3701546681',
-    ADDRESS: 'Ô 33, Lô C10, Đường 72, Khu phố 2, Phường Phú Tân, Thành phố Thủ Dầu Một, Tỉnh Bình Dương',
+    ADDRESS: '38A, Đường 72, Khu Phố Phú Tân 2, Phường Bình Dương, Thành phố Hồ Chí Minh, Việt Nam',
   },
   CONTACT: {
     PHONE: '0918-222-334',
