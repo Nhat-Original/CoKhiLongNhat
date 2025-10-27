@@ -2,7 +2,7 @@ import { handler } from '@/middlewares/handler'
 import verifySession from '@/middlewares/verifySession'
 import { getProductById, updateProductById, removeProductById } from './controllers'
 
-const GET = handler(verifySession, getProductById)
+const GET = handler(getProductById)
 
 const PATCH = handler(verifySession, updateProductById)
 

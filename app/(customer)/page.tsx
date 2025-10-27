@@ -1,14 +1,16 @@
 import React from 'react'
 import IntroductionCarousel from './components/IntroductionCarousel'
 import ProductShowcase from './components/ProductShowcase'
+import ServiceShowcase from './components/ServiceShowcase'
 
-const HomePage = () => {
+const ProductPage = () => {
   return (
-    <div className="my-12 flex flex-col gap-24">
+    <div className="page flex flex-col gap-16">
       <IntroductionCarousel />
+      <ServiceShowcase />
       <ProductShowcase />
     </div>
   )
 }
 
-export default HomePage
+export default ProductPage

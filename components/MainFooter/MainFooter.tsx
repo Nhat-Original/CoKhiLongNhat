@@ -1,22 +1,29 @@
-import { Footer, FooterBrand, FooterIcon, FooterLink, FooterLinkGroup, FooterTitle } from 'flowbite-react'
-import { BsDribbble, BsFacebook, BsGithub, BsInstagram, BsTwitter } from 'react-icons/bs'
+import { Footer, FooterBrand, FooterLinkGroup, FooterTitle } from 'flowbite-react'
 import FOOTER from './footerConstant'
+import logo from '@/public/images/favicon.ico'
+import { MdPhone, MdEmail } from 'react-icons/md'
+import { SiZalo } from 'react-icons/si'
+import Link from 'next/link'
 
-const { INFORMATION, CONTACT, SUPPORT } = FOOTER
+const { INFORMATION, CONTACT } = FOOTER
 
 const MainFooter = () => {
   return (
-    <Footer bgDark>
+    <Footer className="bg-gray-900">
       <div className="w-full">
         <div className="grid w-full grid-cols-2 gap-8 px-6 py-8 md:grid-cols-4">
           <div>
-            <FooterBrand src="/images/favicon.ico" alt="logo" name="COKHICHITIET" className="scale-150" />
+            <FooterBrand
+              src={logo.src}
+              alt="logo"
+              className="bg-white rounded-full aspect-square w-1/2 sm:w-1/4 h-auto"
+            />
           </div>
           <div>
             <FooterTitle title="Thông tin" className="font-bold underline" />
             <FooterLinkGroup col>
               <div>
-                <b>Giám đốc:</b> {INFORMATION.PRESIDENT}
+                <b>Mã số thuế:</b> {INFORMATION.TAX_CODE}
               </div>
               <div>
                 <b>Địa chỉ:</b> {INFORMATION.ADDRESS}
@@ -25,42 +32,46 @@ const MainFooter = () => {
           </div>
           <div>
             <FooterTitle title="Liên hệ" className="font-bold underline" />
-            <FooterLinkGroup col>
-              <div>
-                <b>Số điện thoại:</b> {CONTACT.PHONE}
-              </div>
-              <FooterLink href="#" className="flex">
-                <b>Facebook:</b> {CONTACT.FACEBOOK}
-              </FooterLink>
-              <FooterLink href="#" className="flex">
-                <b>Zalo:</b> {CONTACT.ZALO}
-              </FooterLink>
-              <FooterLink href="#" className="flex">
-                <b>Email:</b>
-              </FooterLink>
+            <FooterLinkGroup col className="truncate">
+              <a href={`tel:${CONTACT.PHONE}`} target="_blank">
+                <div className="flex items-center gap-1">
+                  <MdPhone />
+                  {CONTACT.PHONE}
+                </div>
+              </a>
+              <a href={`mailto:${CONTACT.EMAIL}?subject=Liên hệ từ website Cơ Khí Long Nhật`} target="_blank">
+                <div className="flex items-center gap-1">
+                  <MdEmail />
+                  {CONTACT.EMAIL}
+                </div>
+              </a>
+              <a href={`https://${CONTACT.ZALO}`} target="_blank">
+                <div className="flex items-center gap-1">
+                  <SiZalo />
+                  {CONTACT.ZALO}
+                </div>
+              </a>
+              {/* <a href={`https://${CONTACT.FACEBOOK}`} target="_blank">
+                <div className="flex items-center gap-1">
+                  <MdFacebook />
+                  {CONTACT.FACEBOOK}
+                </div>
+              </a> */}
             </FooterLinkGroup>
           </div>
           <div>
-            <FooterTitle title="Hỗ trợ" className="font-bold underline" />
+            <FooterTitle title="Đường dẫn" className="font-bold underline" />
             <FooterLinkGroup col>
-              <FooterLink href="#">
-                <b>{SUPPORT.GUIDE}</b>
-              </FooterLink>
-              <FooterLink href="#">
-                <b>{SUPPORT.DELIVERY}</b>
-              </FooterLink>
+              <Link href="/dich-vu">
+                <b>Dịch vụ</b>
+              </Link>
+              <Link href="/san-pham">
+                <b>Sản phẩm</b>
+              </Link>
             </FooterLinkGroup>
           </div>
         </div>
-        <div className="w-full bg-gray-700 px-4 py-6 sm:flex sm:items-center sm:justify-between">
-          <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
-            <FooterIcon href="#" icon={BsFacebook} />
-            <FooterIcon href="#" icon={BsInstagram} />
-            <FooterIcon href="#" icon={BsTwitter} />
-            <FooterIcon href="#" icon={BsGithub} />
-            <FooterIcon href="#" icon={BsDribbble} />
-          </div>
-        </div>
+        <div className="w-full text-white bg-gray-800 px-4 py-6">cokhilongnhat.vercel.app</div>
       </div>
     </Footer>
   )

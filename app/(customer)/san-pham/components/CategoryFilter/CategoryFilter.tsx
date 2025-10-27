@@ -4,7 +4,7 @@ import { Select, Spinner } from 'flowbite-react'
 import { Category } from '@prisma/client'
 import { useQuery } from '@tanstack/react-query'
 import { ENV } from '@/utils/constant'
-import useProductStore from '../../hooks/useProductStore'
+import useProductStore from '../../stores/useProductStore'
 
 const CategoryFilter = () => {
   const [productCategorySearch, setProductCategorySearch] = useProductStore((state) => [
@@ -15,7 +15,7 @@ const CategoryFilter = () => {
   const query = useQuery({
     queryKey: ['category'],
     queryFn: async (): Promise<(Category & { _count: { products: number } })[]> => {
-      const response = await fetch(`${ENV.API_URL}/category`)
+      const response = await fetch(`${ENV.NEXT_PUBLIC_API_URL}/category`)
       return (await response.json()).data
     },
   })

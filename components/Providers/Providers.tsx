@@ -6,7 +6,7 @@ import QueryProvider from './QueryProvider'
 
 const Providers = ({ children }: { children: ReactNode }) => {
   return (
-    <SessionProvider>
+    <SessionProvider refetchOnWindowFocus={false}>
       <QueryProvider>
         <FlowbiteProvider>{children}</FlowbiteProvider>
       </QueryProvider>

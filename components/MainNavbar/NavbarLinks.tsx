@@ -2,32 +2,35 @@
 import React from 'react'
 import { NavbarCollapse, NavbarLink } from 'flowbite-react'
 import { usePathname } from 'next/navigation'
-import { useSession } from 'next-auth/react'
 import { ROLE } from '@prisma/client'
 import Link from 'next/link'
+import useAuth from '@/hooks/useAuth'
 
 const NavbarLinks = () => {
   const path = usePathname()
-  const { data: session } = useSession()
+  const { isAuth, user } = useAuth()
 
   return (
     <NavbarCollapse>
       <NavbarLink as={Link} prefetch={false} active={path === '/'} href="/">
         Trang chủ
       </NavbarLink>
+      <NavbarLink as={Link} prefetch={false} active={path.startsWith('/dich-vu')} href="/dich-vu">
+        Dịch vụ
+      </NavbarLink>
       <NavbarLink as={Link} prefetch={false} active={path.startsWith('/san-pham')} href="/san-pham">
         Sản phẩm
       </NavbarLink>
-      {/* <NavbarLink as={Link} prefetch={false} active={path.startsWith('/yeu-thich')} href="/ho-tro">
+      {/* <NavbarLink as={Link} prefetch={false} active={path.startsWith('/yeu-thich')} href="/yeu-thich">
         Yêu thích
       </NavbarLink> */}
-      <NavbarLink as={Link} prefetch={false} active={path.startsWith('/lien-he')} href="/lien-he">
+      {/* <NavbarLink as={Link} prefetch={false} active={path.startsWith('/lien-he')} href="/lien-he">
         Liên hệ
-      </NavbarLink>
-      <NavbarLink as={Link} prefetch={false} active={path.startsWith('/ho-tro')} href="/ho-tro">
+      </NavbarLink> */}
+      {/* <NavbarLink as={Link} prefetch={false} active={path.startsWith('/ho-tro')} href="/ho-tro">
         Hỗ trợ
-      </NavbarLink>
-      {session?.user.role === ROLE.ADMIN && (
+      </NavbarLink> */}
+      {isAuth && user?.role === ROLE.ADMIN && (
         <NavbarLink as={Link} prefetch={false} active={path.startsWith('/quan-ly')} href="/quan-ly">
           Quản lý
         </NavbarLink>

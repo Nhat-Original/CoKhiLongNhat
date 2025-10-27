@@ -1,52 +1,27 @@
-'use client'
-import { useQuery } from '@tanstack/react-query'
-import useProductDetailStore from './hooks/useProductDetailStore'
 import { ENV } from '@/utils/constant'
-import { useEffect } from 'react'
-import { useShallow } from 'zustand/react/shallow'
-import { Spinner } from 'flowbite-react'
+import { Metadata } from 'next'
 
-const ProductDetailLayout = ({
-  children,
-  params,
-}: {
-  children: React.ReactNode
-  params: { simplifiedName: string }
-}) => {
-  const [setProduct, setProductImages, setIsPreviewing, setIsFavorite] = useProductDetailStore(
-    useShallow((state) => [state.setProduct, state.setProductImages, state.setIsPreviewing, state.setIsFavorite]),
-  )
+const generateMetadata = async ({ params }: { params: { simplifiedName: string } }): Promise<Metadata> => {
+  const response = await fetch(`${ENV.NEXT_PUBLIC_API_URL}/product/simplified-name/${params.simplifiedName}`)
+  if (!response.ok) throw new Error()
+  const product = (await response.json()).data
 
-  const query = useQuery({
-    queryKey: ['product', params.simplifiedName],
-    queryFn: async (): Promise<any> => {
-      const response = await fetch(`${ENV.API_URL}/product/simplified-name/${params.simplifiedName}`)
-      if (!response.ok) throw new Error()
-      return (await response.json()).data
-    },
-  })
-
-  useEffect(() => {
-    if (query.isSuccess) {
-      setProduct(query.data)
-      setProductImages(query.data.productImages || [])
-      setIsPreviewing(false)
-      setIsFavorite((JSON.parse(localStorage.getItem('isFavorite') || '[]') as string[]).includes(query.data.id))
+  if (!product) {
+    return {
+      title: 'Không tìm thấy sản phẩm | Cơ Khí Long Nhật',
+      description: 'Không tìm thấy sản phẩm',
     }
-  }, [query.isSuccess, query.data, setProduct, setProductImages, setIsPreviewing, setIsFavorite])
-
-  if (query.isLoading)
-    return (
-      <div className="w-full flex justify-center my-12">
-        <Spinner />
-      </div>
-    )
-
-  if (query.isError) {
-    return <div className="w-full flex justify-center my-12">Không tìm thấy sản phẩm</div>
   }
 
+  return {
+    title: `${product?.name} | Cơ Khí Long Nhật`,
+    description: `${product?.name} - ${product?.description || 'Chưa có mô tả sản phẩm'}`,
+  }
+}
+
+const ProductDetailLayout = ({ children }: { children: React.ReactNode }) => {
   return <>{children}</>
 }
 
 export default ProductDetailLayout
+export { generateMetadata }

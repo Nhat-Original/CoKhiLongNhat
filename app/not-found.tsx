@@ -1,5 +1,11 @@
 import { Button } from 'flowbite-react'
+import { Metadata } from 'next'
 import Link from 'next/link'
+
+const metadata: Metadata = {
+  title: 'Không tìm thấy trang này | Cơ Khí Long Nhật',
+  description: 'Không tìm thấy trang này',
+}
 
 export default function NotFound() {
   return (
@@ -12,3 +18,5 @@ export default function NotFound() {
     </div>
   )
 }
+
+export { metadata }

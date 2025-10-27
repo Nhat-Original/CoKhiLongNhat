@@ -2,7 +2,7 @@
 import React from 'react'
 import { Button } from 'flowbite-react'
 import { MdFavoriteBorder, MdFavorite } from 'react-icons/md'
-import useProductDetailStore from '../../hooks/useProductDetailStore'
+import useProductDetailStore from '../../stores/useProductDetailStore'
 import { useShallow } from 'zustand/react/shallow'
 
 const FavoriteButton = () => {
@@ -14,7 +14,7 @@ const FavoriteButton = () => {
     <Button
       size={'xs'}
       color="transparent"
-      className="font-medium text-cyan-600 hover:underline hover:scale-105 dark:text-cyan-500"
+      className="font-medium text-cyan-700 hover:underline hover:scale-105 dark:text-cyan-500"
       onClick={() => {
         if (isFavorite) {
           localStorage.setItem(
