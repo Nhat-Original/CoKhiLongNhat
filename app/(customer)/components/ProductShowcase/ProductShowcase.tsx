@@ -6,7 +6,6 @@ import { useQuery } from '@tanstack/react-query'
 import { Button, Card, Spinner } from 'flowbite-react'
 import Link from 'next/link'
 import productPlaceholder from '@/public/images/productPlaceholder.png'
-import { MdArrowForward } from 'react-icons/md'
 
 const LIMIT = 6
 
@@ -28,9 +27,6 @@ const ProductShowcase = () => {
         <Link href="/san-pham">
           <Button pill gradientDuoTone="purpleToBlue" size="lg" className="font-extrabold ">
             <div className="mr-2">Xem tất cả</div>
-            <div>
-              <MdArrowForward />
-            </div>
           </Button>
         </Link>
       </div>

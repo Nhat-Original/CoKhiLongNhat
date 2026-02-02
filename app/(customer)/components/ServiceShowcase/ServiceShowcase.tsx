@@ -6,7 +6,6 @@ import { useQuery } from '@tanstack/react-query'
 import { Button, Carousel, Spinner } from 'flowbite-react'
 import Link from 'next/link'
 import servicePlaceholder from '@/public/images/servicePlaceholder.jpg'
-import { MdArrowForward } from 'react-icons/md'
 
 const LIMIT = 4
 
@@ -28,9 +27,6 @@ const ServiceShowcase = () => {
         <Link href="/dich-vu">
           <Button pill gradientDuoTone="purpleToBlue" size="lg" className="font-extrabold ">
             <div className="mr-2">Xem tất cả</div>
-            <div>
-              <MdArrowForward />
-            </div>
           </Button>
         </Link>
       </div>
