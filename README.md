@@ -6,7 +6,7 @@
 - npm
 - A PostgreSQL database
 
-## Intall dependencies
+## Install dependencies
 
 ```bash
 npm install
