@@ -4,7 +4,7 @@ import standardResponse from '@/utils/standardResponese'
 import { ENV, STATUS_CODE } from '@/utils/constant'
 import { SignJWT } from 'jose'
 import prisma from '@/prisma'
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 
 const login = async (req: NextRequest) => {
   const body = (await req.json()) as LoginSchema
@@ -64,6 +64,10 @@ const login = async (req: NextRequest) => {
   res.cookies.set({
     name: 'token',
     value: token,
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    path: '/',
     maxAge: 60 * 60 * 24,
   })
 
